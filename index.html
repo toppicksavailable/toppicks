@@ -1,1 +1,91 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Everyday Deals</title><style>:root{--bg:#F7F5EF;--card:#fff;--primary:#6BAA75;--primary-dark:#2F5D50;--text:#4A4A4A;--border:#DCE7DF;}body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,sans-serif}header{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;background:var(--card);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:10}.logo{font-size:20px;font-weight:700;color:var(--primary-dark)}nav a{margin-left:16px;color:var(--primary-dark);text-decoration:none;font-weight:600}.menu-btn{display:none;font-size:26px;background:0;border:0;color:var(--primary-dark)}#mobile-menu{display:none;flex-direction:column;background:var(--card);border-bottom:1px solid var(--border)}#mobile-menu a{padding:12px 20px;border-top:1px solid var(--border);color:var(--primary-dark);text-decoration:none;font-weight:600}.hero{padding:40px 20px;text-align:center}.hero h1{margin:0;font-size:32px;color:var(--primary-dark)}.grid{display:grid;gap:14px;padding:20px}@media(min-width:600px){.grid{grid-template-columns:repeat(2,1fr)}}@media(min-width:900px){.grid{grid-template-columns:repeat(4,1fr)}}.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;box-shadow:0 2px 6px rgba(0,0,0,.05)}.card img{width:100%;border-radius:8px}.card h3{margin:10px 0 6px;font-size:16px;color:var(--primary-dark)}.card p{margin:0 0 10px;font-size:14px}button{width:100%;padding:10px;border:0;border-radius:6px;background:var(--primary);color:#fff;font-weight:600}button:hover{background:var(--primary-dark)}#chat-btn{position:fixed;bottom:20px;right:20px;background:var(--primary);color:#fff;border:0;border-radius:50%;width:60px;height:60px;font-size:26px;box-shadow:0 4px 10px rgba(0,0,0,.2)}#chat-box{position:fixed;bottom:90px;right:20px;width:280px;background:var(--card);border:1px solid var(--border);border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,.15);display:none;flex-direction:column}#chat-header{padding:12px;background:var(--primary-dark);color:#fff;border-radius:12px 12px 0 0;font-weight:700}#chat-messages{padding:10px;height:200px;overflow-y:auto;font-size:14px}#chat-input{display:flex;border-top:1px solid var(--border)}#chat-input input{flex:1;padding:10px;border:0}#chat-input button{width:60px;background:var(--primary-dark);border:0;color:#fff}</style></head><body><header><div class="logo">Everyday Deals</div><nav class="desktop-nav"><a href="#">Home</a><a href="#">Deals</a><a href="#">Categories</a></nav><button class="menu-btn" onclick="toggleMenu()">☰</button></header><div id="mobile-menu"><a href="#">Home</a><a href="#">Deals</a><a href="#">Categories</a></div><section class="hero"><h1>Find Your Everyday Essentials</h1></section><section class="grid"><div class="card"><img src="https://via.placeholder.com/300x200"><h3>Product One</h3><p>Short description here.</p><button>View</button></div><div class="card"><img src="https://via.placeholder.com/300x200"><h3>Product Two</h3><p>Short description here.</p><button>View</button></div><div class="card"><img src="https://via.placeholder.com/300x200"><h3>Product Three</h3><p>Short description here.</p><button>View</button></div><div class="card"><img src="https://via.placeholder.com/300x200"><h3>Product Four</h3><p>Short description here.</p><button>View</button></div><div class="card"><img src="https://via.placeholder.com/300x200"><h3>Product Five</h3><p>Short description here.</p><button>View</button></div><div class="card"><img src="https://via.placeholder.com/300x200"><h3>Product Six</h3><p>Short description here.</p><button>View</button></div><div class="card"><img src="https://via.placeholder.com/300x200"><h3>Product Seven</h3><p>Short description here.</p><button>View</button></div><div class="card"><img src="https://via.placeholder.com/300x200"><h3>Product Eight</h3><p>Short description here.</p><button>View</button></div></section><button id="chat-btn" onclick="toggleChat()">💬</button><div id="chat-box"><div id="chat-header">Cozy Helper</div><div id="chat-messages"></div><div id="chat-input"><input id="chat-text" placeholder="Type..."><button onclick="sendMsg()">➤</button></div></div><script>function toggleMenu(){let m=document.getElementById("mobile-menu");m.style.display=m.style.display==="flex"?"none":"flex"}function toggleChat(){let c=document.getElementById("chat-box");c.style.display=c.style.display==="flex"?"none":"flex"}function sendMsg(){let b=document.getElementById("chat-messages"),t=document.getElementById("chat-text").value.trim();if(!t)return;b.innerHTML+=`<div><b>You:</b> ${t}</div>`;let r="I'm here to help with anything you need.";let s=t.toLowerCase();if(s.includes("baby"))r="Aww, looking for baby essentials? I can help you find cozy, safe picks.";if(s.includes("tech"))r="Tech upgrades? I can guide you to the best everyday gadgets.";if(s.includes("home"))r="Home comforts make everything better. Want soft lighting or cozy decor ideas?";if(s.includes("gaming"))r="Gaming gear? I can help you find comfy, budget-friendly setups.";b.innerHTML+=`<div><b>AI:</b> ${r}</div>`;document.getElementById("chat-text").value="";b.scrollTop=b.scrollHeight}</script></body></html>
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Everyday Deals</title>
+<style>
+:root{--bg:#F7F5EF;--card:#fff;--primary:#6BAA75;--primary-dark:#2F5D50;--text:#4A4A4A;--border:#DCE7DF;}
+body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,sans-serif;}
+header{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;background:var(--card);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:10;}
+.logo{font-size:20px;font-weight:700;color:var(--primary-dark);}
+nav a{margin-left:16px;color:var(--primary-dark);text-decoration:none;font-weight:600;}
+.menu-btn{display:none;font-size:26px;background:none;border:none;color:var(--primary-dark);}
+#mobile-menu{display:none;flex-direction:column;background:var(--card);border-bottom:1px solid var(--border);}
+#mobile-menu a{padding:12px 20px;border-top:1px solid var(--border);color:var(--primary-dark);text-decoration:none;font-weight:600;}
+.hero{text-align:center;padding:40px 20px;}
+.hero h1{margin:0;font-size:32px;color:var(--primary-dark);}
+.grid{display:grid;gap:14px;padding:20px;}
+@media(min-width:600px){.grid{grid-template-columns:repeat(2,1fr);}}
+@media(min-width:900px){.grid{grid-template-columns:repeat(4,1fr);}}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;box-shadow:0 2px 6px rgba(0,0,0,0.05);}
+.card img{width:100%;border-radius:8px;}
+.card h3{margin:10px 0 6px;font-size:16px;color:var(--primary-dark);}
+.card p{margin:0 0 10px;font-size:14px;}
+button{width:100%;padding:10px;border:none;border-radius:6px;background:var(--primary);color:#fff;font-weight:600;}
+button:hover{background:var(--primary-dark);}
+#chat-btn{position:fixed;bottom:20px;right:20px;background:var(--primary);color:#fff;border:none;border-radius:50%;width:60px;height:60px;font-size:26px;box-shadow:0 4px 10px rgba(0,0,0,0.2);}
+#chat-box{position:fixed;bottom:90px;right:20px;width:280px;background:var(--card);border:1px solid var(--border);border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,0.15);display:none;flex-direction:column;}
+#chat-header{padding:12px;background:var(--primary-dark);color:#fff;border-radius:12px 12px 0 0;font-weight:700;}
+#chat-messages{padding:10px;height:200px;overflow-y:auto;font-size:14px;}
+#chat-input{display:flex;border-top:1px solid var(--border);}
+#chat-input input{flex:1;padding:10px;border:none;}
+#chat-input button{width:60px;background:var(--primary-dark);border:none;color:#fff;}
+</style>
+</head><body>
+
+<header>
+<div class="logo">Everyday Deals</div>
+<nav><a href="#">Home</a><a href="#">Deals</a><a href="#">Categories</a></nav>
+<button class="menu-btn" onclick="toggleMenu()">☰</button>
+</header>
+
+<div id="mobile-menu">
+<a href="#">Home</a><a href="#">Deals</a><a href="#">Categories</a>
+</div>
+
+<section class="hero"><h1>Find Your Everyday Essentials</h1></section>
+
+<section class="grid">
+<div class="card"><img src="https://via.placeholder.com/300x200"><h3>Product One</h3><p>Short description here.</p><button>View</button></div>
+<div class="card"><img src="https://via.placeholder.com/300x200"><h3>Product Two</h3><p>Short description here.</p><button>View</button></div>
+<div class="card"><img src="https://via.placeholder.com/300x200"><h3>Product Three</h3><p>Short description here.</p><button>View</button></div>
+<div class="card"><img src="https://via.placeholder.com/300x200"><h3>Product Four</h3><p>Short description here.</p><button>View</button></div>
+<div class="card"><img src="https://via.placeholder.com/300x200"><h3>Product Five</h3><p>Short description here.</p><button>View</button></div>
+<div class="card"><img src="https://via.placeholder.com/300x200"><h3>Product Six</h3><p>Short description here.</p><button>View</button></div>
+<div class="card"><img src="https://via.placeholder.com/300x200"><h3>Product Seven</h3><p>Short description here.</p><button>View</button></div>
+<div class="card"><img src="https://via.placeholder.com/300x200"><h3>Product Eight</h3><p>Short description here.</p><button>View</button></div>
+</section>
+
+<button id="chat-btn" onclick="toggleChat()">💬</button>
+
+<div id="chat-box">
+<div id="chat-header">Cozy Helper</div>
+<div id="chat-messages"></div>
+<div id="chat-input">
+<input id="chat-text" placeholder="Type...">
+<button onclick="sendMsg()">➤</button>
+</div>
+</div>
+
+<script>
+function toggleMenu(){
+ let m=document.getElementById("mobile-menu");
+ m.style.display=m.style.display==="flex"?"none":"flex";
+}
+function toggleChat(){
+ let c=document.getElementById("chat-box");
+ c.style.display=c.style.display==="flex"?"none":"flex";
+}
+function sendMsg(){
+ let box=document.getElementById("chat-messages");
+ let text=document.getElementById("chat-text").value.trim();
+ if(!text)return;
+ box.innerHTML+=`<div><b>You:</b> ${text}</div>`;
+ let s=text.toLowerCase(),reply="I'm here to help with anything you need.";
+ if(s.includes("baby"))reply="Aww, looking for baby essentials? I can help you find cozy, safe picks.";
+ if(s.includes("tech"))reply="Tech upgrades? I can guide you to the best everyday gadgets.";
+ if(s.includes("home"))reply="Home comforts make everything better. Want soft lighting or cozy decor ideas?";
+ if(s.includes("gaming"))reply="Gaming gear? I can help you find comfy, budget-friendly setups.";
+ box.innerHTML+=`<div><b>AI:</b> ${reply}</div>`;
+ document.getElementById("chat-text").value="";
+ box.scrollTop=box.scrollHeight;
+}
+</script>
+
+</body></html>

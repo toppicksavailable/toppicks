@@ -1,171 +1,52 @@
-<style>
-    body {
-        margin: 0;
-        font-family: "Segoe UI", Arial, sans-serif;
-        background: #ffffff; /* brighter white */
-        color: #333;
-    }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dakota’s Amazon Picks</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    /* Header */
-    header {
-        background: #ffffff;
-        padding: 24px;
-        box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        position: sticky;
-        top: 0;
-        z-index: 100;
-    }
+    <style>
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: #ffffff;
+            color: #333;
+        }
 
-    header h2 {
-        margin: 0;
-        font-weight: 700;
-        color: #444;
-    }
+        /* Header */
+        header {
+            background: #ffffff;
+            padding: 26px;
+            box-shadow: 0 2px 14px rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
 
-    nav a {
-        text-decoration: none;
-        color: #555;
-        font-weight: 600;
-        transition: 0.2s;
-    }
+        header h2 {
+            margin: 0;
+            font-weight: 700;
+            color: #444;
+        }
 
-    nav a:hover {
-        color: #8aa899; /* soft cozy sage */
-    }
+        nav {
+            display: flex;
+            gap: 22px;
+        }
 
-    /* SEARCH BAR — bigger + cozy */
-    #searchBar {
-        padding: 14px 18px;
-        width: 260px;
-        border-radius: 12px;
-        border: 2px solid #e8e8e8;
-        background: #fafafa;
-        font-size: 16px;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-        transition: 0.2s;
-    }
+        nav a {
+            text-decoration: none;
+            color: #555;
+            font-weight: 600;
+            transition: 0.2s;
+        }
 
-    #searchBar:focus {
-        border-color: #c9d8d2;
-        background: #ffffff;
-        outline: none;
-    }
+        nav a:hover {
+            color: #8aa899;
+        }
 
-    /* Hero */
-    .hero {
-        background: #ffffff;
-        text-align: center;
-        padding: 80px 20px;
-        border-bottom: 1px solid #f2f2f2;
-    }
-
-    .hero h1 {
-        font-size: 44px;
-        margin-bottom: 12px;
-        color: #444;
-    }
-
-    .hero p {
-        font-size: 18px;
-        color: #666;
-    }
-
-    /* Category Buttons */
-    #categories {
-        text-align: center;
-        padding: 40px 20px;
-    }
-
-    .cat-btn {
-        padding: 12px 22px;
-        border: none;
-        border-radius: 10px;
-        font-weight: 600;
-        color: white;
-        cursor: pointer;
-        transition: 0.2s;
-        margin: 6px;
-        font-size: 15px;
-    }
-
-    .cat-btn[data-cat="baby"] { background: #d8e7f7; color:#3a4a5a; }
-    .cat-btn[data-cat="tech"] { background: #e8ddf7; color:#4a3f5a; }
-    .cat-btn[data-cat="home"] { background: #dff2e4; color:#3a5a46; }
-    .cat-btn[data-cat="gaming"] { background: #f7e4d1; color:#5a463a; }
-
-    .cat-btn:hover {
-        opacity: 0.9;
-    }
-
-    /* Product Grid */
-    .products {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-        gap: 24px;
-        padding: 50px 20px;
-        max-width: 1200px;
-        margin: auto;
-    }
-
-    .product-card {
-        background: #ffffff;
-        border-radius: 14px;
-        padding: 22px;
-        border: 1px solid #f0f0f0;
-        box-shadow: 0 3px 10px rgba(0,0,0,0.05);
-        text-align: center;
-        transition: 0.2s;
-    }
-
-    .product-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 6px 16px rgba(0,0,0,0.08);
-    }
-
-    .product-card img {
-        width: 100%;
-        border-radius: 12px;
-    }
-
-    .product-card h3 {
-        margin: 16px 0 10px;
-        color: #444;
-    }
-
-    .price {
-        font-size: 22px;
-        font-weight: bold;
-        color: #8aa899; /* cozy sage */
-        margin-bottom: 10px;
-    }
-
-    .btn {
-        display: inline-block;
-        margin-top: 14px;
-        padding: 12px 20px;
-        background: #8aa899;
-        color: white;
-        border-radius: 10px;
-        text-decoration: none;
-        font-weight: bold;
-        transition: 0.2s;
-    }
-
-    .btn:hover {
-        background: #7a9888;
-    }
-
-    /* Footer */
-    footer {
-        text-align: center;
-        padding: 24px;
-        font-size: 14px;
-        opacity: 0.7;
-        background: #ffffff;
-        border-top: 1px solid #f2f2f2;
-        margin-top: 50px;
-    }
-</style>
+        /* SEARCH BAR — highlighted + cozy */
+        #searchBar {

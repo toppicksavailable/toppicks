@@ -1,32 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Top Amazon Picks</title>
+    <meta charset="UTF-8">
+    <title>Dakota’s Amazon Picks</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Hand‑picked Amazon deals and top product picks — clean, cozy, and easy to browse.">
 
     <style>
         body {
             margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f7f7f7;
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: #fafafa;
             color: #333;
         }
 
-        /* Hero Section */
+        /* Header */
+        header {
+            background: #ffffff;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        header h2 {
+            margin: 0;
+            font-weight: 700;
+            color: #444;
+        }
+
+        nav {
+            display: flex;
+            gap: 20px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #555;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        nav a:hover {
+            color: #7a9c8f; /* cozy sage */
+        }
+
+        #searchBar {
+            padding: 10px 14px;
+            width: 200px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            background: #fff;
+        }
+
+        /* Hero */
         .hero {
-            background: linear-gradient(135deg, #ff7eb3, #65d6ff);
-            color: white;
+            background: #ffffff;
             text-align: center;
-            padding: 80px 20px;
+            padding: 70px 20px;
+            border-bottom: 1px solid #eee;
         }
+
         .hero h1 {
-            font-size: 48px;
+            font-size: 42px;
             margin-bottom: 10px;
+            color: #444;
         }
+
         .hero p {
-            font-size: 20px;
-            opacity: 0.9;
+            font-size: 18px;
+            color: #666;
+        }
+
+        /* Category Buttons */
+        #categories {
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        #categories h2 {
+            color: #444;
+        }
+
+        .cat-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            transition: 0.2s;
+            margin: 5px;
+        }
+
+        .cat-btn[data-cat="baby"] { background: #a7c7e7; }
+        .cat-btn[data-cat="tech"] { background: #c7b8ea; }
+        .cat-btn[data-cat="home"] { background: #b7d8c3; }
+        .cat-btn[data-cat="gaming"] { background: #f2c7a5; }
+
+        .cat-btn:hover {
+            opacity: 0.85;
         }
 
         /* Product Grid */
@@ -43,86 +120,189 @@
             background: white;
             border-radius: 12px;
             padding: 20px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            border: 1px solid #eee;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
             text-align: center;
-            transition: transform 0.2s;
+            transition: 0.2s;
         }
+
         .product-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-4px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
         }
+
         .product-card img {
             width: 100%;
             border-radius: 10px;
         }
+
         .product-card h3 {
             margin: 15px 0 10px;
+            color: #444;
         }
-        .product-card p {
-            font-size: 14px;
-            opacity: 0.8;
+
+        .price {
+            font-size: 20px;
+            font-weight: bold;
+            color: #7a9c8f; /* cozy sage */
+            margin-bottom: 8px;
         }
 
         .btn {
             display: inline-block;
             margin-top: 12px;
             padding: 10px 18px;
-            background: #ff7eb3;
+            background: #7a9c8f;
             color: white;
             border-radius: 8px;
             text-decoration: none;
             font-weight: bold;
-        }
-        .btn:hover {
-            background: #ff5c9d;
+            transition: 0.2s;
         }
 
+        .btn:hover {
+            background: #6b8c80;
+        }
+
+        /* About */
+        #about {
+            padding: 40px 20px;
+            text-align: center;
+            background: #ffffff;
+            border-top: 1px solid #eee;
+        }
+
+        #about p {
+            max-width: 600px;
+            margin: auto;
+            font-size: 16px;
+            opacity: 0.8;
+        }
+
+        /* Footer */
         footer {
             text-align: center;
             padding: 20px;
             font-size: 14px;
             opacity: 0.7;
+            background: #ffffff;
+            border-top: 1px solid #eee;
+            margin-top: 40px;
         }
     </style>
 </head>
-
 <body>
 
+    <!-- HEADER -->
+    <header>
+        <h2>Dakota’s Amazon Picks</h2>
+
+        <nav>
+            <a href="#products">Products</a>
+            <a href="#categories">Categories</a>
+            <a href="#about">About</a>
+        </nav>
+
+        <input id="searchBar" type="text" placeholder="Search products...">
+    </header>
+
+    <!-- HERO -->
     <div class="hero">
         <h1>Top Amazon Deals</h1>
-        <p>Hand‑picked products you’ll love — updated daily.</p>
+        <p>Hand‑picked products you’ll love — updated regularly.</p>
     </div>
 
-    <section class="products">
+    <!-- CATEGORY BUTTONS -->
+    <section id="categories">
+        <h2>Shop by Category</h2>
+        <div>
+            <button class="cat-btn" data-cat="baby">Baby</button>
+            <button class="cat-btn" data-cat="tech">Tech</button>
+            <button class="cat-btn" data-cat="home">Home</button>
+            <button class="cat-btn" data-cat="gaming">Gaming</button>
+        </div>
+    </section>
+
+    <!-- PRODUCT GRID -->
+    <section class="products" id="products">
 
         <!-- PRODUCT CARD 1 -->
-        <div class="product-card">
-            <img src="https://via.placeholder.com/300x250" alt="Product Image">
-            <h3>Product Name</h3>
-            <p>Short description of the product goes here.</p>
+        <div class="product-card" data-name="Baby Monitor" data-cat="baby">
+            <img src="https://via.placeholder.com/300x250" alt="Baby Monitor">
+            <h3>Baby Monitor</h3>
+            <p class="price">$39.99</p>
+            <p>Crystal clear audio and night vision for peace of mind.</p>
             <a class="btn" href="YOUR-AFFILIATE-LINK">View on Amazon</a>
         </div>
 
         <!-- PRODUCT CARD 2 -->
-        <div class="product-card">
-            <img src="https://via.placeholder.com/300x250" alt="Product Image">
-            <h3>Product Name</h3>
-            <p>Short description of the product goes here.</p>
+        <div class="product-card" data-name="Wireless Earbuds" data-cat="tech">
+            <img src="https://via.placeholder.com/300x250" alt="Wireless Earbuds">
+            <h3>Wireless Earbuds</h3>
+            <p class="price">$24.99</p>
+            <p>Great sound, long battery life, and a compact case.</p>
             <a class="btn" href="YOUR-AFFILIATE-LINK">View on Amazon</a>
         </div>
 
         <!-- PRODUCT CARD 3 -->
-        <div class="product-card">
-            <img src="https://via.placeholder.com/300x250" alt="Product Image">
-            <h3>Product Name</h3>
-            <p>Short description of the product goes here.</p>
+        <div class="product-card" data-name="LED Strip Lights" data-cat="home">
+            <img src="https://via.placeholder.com/300x250" alt="LED Strip Lights">
+            <h3>LED Strip Lights</h3>
+            <p class="price">$12.99</p>
+            <p>Perfect for cozy bedrooms and gaming setups.</p>
+            <a class="btn" href="YOUR-AFFILIATE-LINK">View on Amazon</a>
+        </div>
+
+        <!-- PRODUCT CARD 4 -->
+        <div class="product-card" data-name="Gaming Mouse" data-cat="gaming">
+            <img src="https://via.placeholder.com/300x250" alt="Gaming Mouse">
+            <h3>Gaming Mouse</h3>
+            <p class="price">$19.99</p>
+            <p>RGB lighting and fast response for smooth gameplay.</p>
             <a class="btn" href="YOUR-AFFILIATE-LINK">View on Amazon</a>
         </div>
 
     </section>
 
+    <!-- ABOUT SECTION -->
+    <section id="about">
+        <h2>About This Site</h2>
+        <p>
+            I hand‑pick Amazon products that offer great value, quality, and style.  
+            Everything here is curated to make shopping easier and more cozy.
+        </p>
+    </section>
+
+    <!-- FOOTER -->
     <footer>
-        © 2026 Your Affiliate Site — As an Amazon Associate I earn from qualifying purchases.
+        © 2026 Dakota’s Amazon Picks — As an Amazon Associate I earn from qualifying purchases.
     </footer>
+
+    <!-- SEARCH + CATEGORY SCRIPT -->
+    <script>
+        const searchBar = document.getElementById("searchBar");
+        const cards = document.querySelectorAll(".product-card");
+        const catButtons = document.querySelectorAll(".cat-btn");
+
+        // SEARCH FILTER
+        searchBar.addEventListener("input", () => {
+            const term = searchBar.value.toLowerCase();
+            cards.forEach(card => {
+                const name = card.getAttribute("data-name").toLowerCase();
+                card.style.display = name.includes(term) ? "block" : "none";
+            });
+        });
+
+        // CATEGORY FILTER
+        catButtons.forEach(btn => {
+            btn.addEventListener("click", () => {
+                const category = btn.getAttribute("data-cat");
+                cards.forEach(card => {
+                    card.style.display = card.getAttribute("data-cat") === category ? "block" : "none";
+                });
+            });
+        });
+    </script>
 
 </body>
 </html>

@@ -1,167 +1,214 @@
-`html
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Everyday Deals</title><style>
-body{margin:0;font-family:'Segoe UI',sans-serif;background:#faf9f7;color:#3a3a3a;transition:.3s}
-.dark body{background:#1f1f1f;color:#e6e6e6}
-header{padding:16px 20px;background:#fff;position:sticky;top:0;z-index:100;box-shadow:0 3px 8px #0001;border-bottom:1px solid #f0ebe6;display:flex;align-items:center;justify-content:space-between}
-.dark header{background:#2a2a2a;border-color:#333}
-.logo{font-size:18px;font-weight:700;letter-spacing:1px}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Everyday Deals</title>
 
-search{flex:1;margin-left:12px;padding:9px 12px;border:1px solid #e6ddd4;border-radius:999px;background:#fdfbf8;font-size:13px;transition:.3s}
-.dark #search{background:#333;border-color:#444;color:#eee}
-.toggle{margin-left:10px;font-size:18px;cursor:pointer}
-.hero{padding:26px 18px;text-align:center;background:linear-gradient(180deg,#f3ede6 0%,#faf9f7 100%);transition:.3s}
-.dark .hero{background:linear-gradient(180deg,#2a2a2a 0%,#1f1f1f 100%)}
-.hero h1{margin:0;font-size:18px;font-weight:700;letter-spacing:.5px}
-.hero p{margin:8px 0 0;font-size:13px;color:#5a5a5a}
-.dark .hero p{color:#ccc}
-.chips{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:10px 10px 16px}
-.chip{padding:6px 11px;background:#f3ede6;border-radius:999px;font-size:11px;cursor:pointer;transition:.2s;white-space:nowrap}
-.chip:hover{background:#e8e0d8}
-.dark .chip{background:#333;color:#eee}
-.featured{padding:14px}
-.featured h3{text-align:center;margin:0 0 10px;font-size:15px;font-weight:600}
-.fgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px}
-.fitem{background:#fff;border-radius:12px;box-shadow:0 3px 8px #0001;padding:8px;text-align:center;position:relative;font-size:12px}
-.dark .fitem{background:#2a2a2a}
-.badge{position:absolute;top:6px;left:6px;background:#ff6f61;color:#fff;font-size:9px;padding:2px 5px;border-radius:6px;animation:pulse 1.5s infinite}
-@keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.08)}100%{transform:scale(1)}}
-.fitem img{width:100%;height:90px;object-fit:cover;border-radius:8px;background:#f7f4f0}
-.products{padding:14px;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
-.card{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 3px 8px #0001;cursor:pointer;opacity:0;transform:translateY(10px);transition:.3s;position:relative}
-.dark .card{background:#2a2a2a}
-.card.show{opacity:1;transform:translateY(0)}
-.card img{width:100%;height:140px;object-fit:cover;background:#f7f4f0}
-.card .info{padding:9px}
-.card .title{font-size:13px;font-weight:600;margin-bottom:4px}
-.card .desc{font-size:11px;color:#6a6a6a;margin-bottom:4px}
-.dark .card .desc{color:#ccc}
-.card .price{font-size:11px;color:#444}
-.dark .card .price{color:#ddd}
+<style>
+body{
+  margin:0;
+  font-family:'Segoe UI',sans-serif;
+  background:#faf9f7;
+  color:#3a3a3a;
+}
 
-nores{text-align:center;padding:18px;display:none;color:#7a7a7a;font-size:12px}
-footer{padding:14px;text-align:center;font-size:11px;color:#7a7a7a;background:#fff;border-top:1px solid #eee;margin-top:18px;transition:.3s}
-.dark footer{background:#2a2a2a;color:#aaa;border-color:#333}
+/* HEADER */
+header{
+  padding:16px 20px;
+  background:#fff;
+  position:sticky;
+  top:0;
+  z-index:100;
+  box-shadow:0 3px 8px #0001;
+  border-bottom:1px solid #f0ebe6;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.logo{
+  font-size:18px;
+  font-weight:700;
+}
+#search{
+  flex:1;
+  margin-left:12px;
+  padding:9px 12px;
+  border:1px solid #e6ddd4;
+  border-radius:999px;
+  background:#fdfbf8;
+  font-size:13px;
+}
 
-topbtn{position:fixed;bottom:80px;right:16px;background:#f3ede6;padding:10px;border-radius:50%;cursor:pointer;display:none;box-shadow:0 3px 8px #0003;font-size:14px}
-.dark #topbtn{background:#333;color:#eee}
+/* HERO */
+.hero{
+  padding:26px 18px;
+  text-align:center;
+  background:#f3ede6;
+}
+.hero h1{
+  margin:0;
+  font-size:18px;
+  font-weight:700;
+}
+.hero p{
+  margin:8px 0 0;
+  font-size:13px;
+  color:#5a5a5a;
+}
 
-cart{position:fixed;bottom:130px;right:16px;background:#f3ede6;padding:11px;border-radius:50%;cursor:pointer;box-shadow:0 3px 8px #0003;font-size:16px}
-.dark #cart{background:#333;color:#eee}
-.nav{position:fixed;bottom:0;left:0;width:100%;background:#f3ede6;display:flex;justify-content:space-around;padding:7px 0;box-shadow:0 -3px 8px #0002;font-size:11px}
-.dark .nav{background:#2a2a2a;color:#eee}
-.nav div{text-align:center}
+/* CATEGORY CHIPS */
+.chips{
+  display:flex;
+  gap:8px;
+  justify-content:center;
+  flex-wrap:wrap;
+  margin:14px;
+}
+.chip{
+  padding:6px 11px;
+  background:#f3ede6;
+  border-radius:999px;
+  font-size:11px;
+  cursor:pointer;
+}
 
-chatBtn{position:fixed;bottom:180px;right:16px;background:#f3ede6;padding:11px;border-radius:50%;cursor:pointer;box-shadow:0 3px 8px #0003;font-size:18px;z-index:200}
-.dark #chatBtn{background:#333;color:#eee}
+/* PRODUCT GRID */
+.products{
+  padding:14px;
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(150px,1fr));
+  gap:12px;
+}
+.card{
+  background:#fff;
+  border-radius:14px;
+  overflow:hidden;
+  box-shadow:0 3px 8px #0001;
+}
+.card img{
+  width:100%;
+  height:140px;
+  object-fit:cover;
+}
+.card .info{
+  padding:9px;
+}
+.card .title{
+  font-size:13px;
+  font-weight:600;
+  margin-bottom:4px;
+}
+.card .desc{
+  font-size:11px;
+  color:#6a6a6a;
+  margin-bottom:4px;
+}
+.card .price{
+  font-size:11px;
+  color:#444;
+}
 
-chatBox{position:fixed;bottom:70px;right:16px;width:260px;background:#fff;border-radius:14px;box-shadow:0 4px 12px #0003;display:none;flex-direction:column;overflow:hidden;z-index:200;font-size:12px}
-.dark #chatBox{background:#2a2a2a;color:#eee}
+#nores{
+  text-align:center;
+  padding:18px;
+  display:none;
+  color:#7a7a7a;
+  font-size:12px;
+}
+</style>
+</head>
 
-chatHead{padding:9px;background:#f3ede6;font-weight:600;text-align:center}
-.dark #chatHead{background:#333}
+<body>
 
-chatMsgs{padding:8px;height:210px;overflow-y:auto}
-.msg{margin-bottom:7px;padding:6px 8px;border-radius:9px;max-width:80%}
-.user{background:#d9f0ff;margin-left:auto}
-.bot{background:#f3ede6}
-.dark .bot{background:#444}
+<header>
+  <div class="logo">EVERYDAY DEALS</div>
+  <input id="search" placeholder="Search products...">
+</header>
 
-chatInput{display:flex;border-top:1px solid #eee}
-
-chatInput input{flex:1;padding:7px 8px;border:none;font-size:12px;background:#fafafa}
-.dark #chatInput input{background:#333;color:#eee}
-
-chatInput button{padding:7px 10px;border:none;background:#f3ede6;cursor:pointer;font-size:12px}
-.dark #chatInput button{background:#444;color:#eee}
-</style></head><body>
-<header><div class="logo">EVERYDAY DEALS</div><input id="search" placeholder="Search products..."><div class="toggle" id="toggle">🌙</div></header>
-<div class="hero><h1>COZY ESSENTIALS FOR EVERYDAY LIVING</h1><p>Curated finds in baby, tech, home, gaming, and more.</p></div>
-<div class="chips">
-<div class="chip" data-cat="all">All</div><div class="chip" data-cat="baby">Baby</div><div class="chip" data-cat="tech">Tech</div><div class="chip" data-cat="home">Home</div><div class="chip" data-cat="gaming">Gaming</div><div class="chip" data-cat="beauty">Beauty</div><div class="chip" data-cat="kitchen">Kitchen</div><div class="chip" data-cat="cleaning">Cleaning</div><div class="chip" data-cat="organization">Organization</div><div class="chip" data-cat="pets">Pets</div><div class="chip" data-cat="outdoors">Outdoors</div><div class="chip" data-cat="clothing">Clothing</div><div class="chip" data-cat="toys">Toys</div><div class="chip" data-cat="health">Health</div><div class="chip" data-cat="office">Office</div>
+<div class="hero">
+  <h1>COZY ESSENTIALS FOR EVERYDAY LIVING</h1>
+  <p>Curated finds in baby, tech, home, and gaming.</p>
 </div>
-<div class="featured"><h3>Featured Deals</h3><div class="fgrid">
-<div class="fitem"><div class="badge">HOT</div><img src="https://images.unsplash.com/photo-1581579188871-45ea61f2a0c8?w=400"><div>Cozy Baby Favorite</div></div>
-<div class="fitem"><div class="badge">TOP</div><img src="https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=400"><div>Everyday Tech Pick</div></div>
-<div class="fitem"><div class="badge">NEW</div><img src="https://images.unsplash.com/photo-1601042879364-f6a15d5f2c3b?w=400"><div>Home Comfort Highlight</div></div>
-</div></div>
-<div class="products" id="products"></div><div id="nores">No matching products found.</div>
-<footer>© 2026 Everyday Deals — Cozy curated finds.</footer>
-<div id="topbtn">↑</div><div id="cart">🛒</div>
-<div class="nav"><div>Home</div><div>Categories</div><div>Search</div><div>Deals</div><div>Cart</div></div>
-<div id="chatBtn">💬</div>
-<div id="chatBox"><div id="chatHead">AI Assistant</div><div id="chatMsgs"></div><div id="chatInput"><input id="chatText" placeholder="Ask me anything..."><button id="chatSend">➤</button></div></div>
+
+<div class="chips">
+  <div class="chip" data-cat="all">All</div>
+  <div class="chip" data-cat="baby">Baby</div>
+  <div class="chip" data-cat="tech">Tech</div>
+  <div class="chip" data-cat="home">Home</div>
+  <div class="chip" data-cat="gaming">Gaming</div>
+</div>
+
+<div class="products" id="products"></div>
+<div id="nores">No matching products found.</div>
+
 <script>
+/* STABLE COZY-BEIGE CDN IMAGES */
+const IMAGES = {
+  blanket: "https://images.unsplash.com/photo-1604335399105-7a4d7a8f4e70?auto=format&fit=crop&w=600&q=80",
+  swaddle: "https://images.unsplash.com/photo-1617038260897-1e94c3b5c832?auto=format&fit=crop&w=600&q=80",
+  speaker: "https://images.unsplash.com/photo-1585386959984-a4155224a1a1?auto=format&fit=crop&w=600&q=80",
+  stand: "https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=600&q=80",
+  diffuser: "https://images.unsplash.com/photo-1600172454132-5c4f0e90a962?auto=format&fit=crop&w=600&q=80",
+  pillow: "https://images.unsplash.com/photo-1616628182509-1e0adf7eecca?auto=format&fit=crop&w=600&q=80",
+  mouse: "https://images.unsplash.com/photo-1587825140708-8a9f7f4c8ad5?auto=format&fit=crop&w=600&q=80",
+  keyboard: "https://images.unsplash.com/photo-1587829741301-1e8b98cbfbac?auto=format&fit=crop&w=600&q=80"
+};
+
+/* PRODUCT LIST */
 const PRODUCTS=[
-{cat:"baby",title:"Cozy Baby Blanket",img:"https://images.unsplash.com/photo-1581579188871-45ea61f2a0c8?w=400",desc:"Soft, breathable blanket for everyday snuggles.",price:"Price varies"},
-{cat:"baby",title:"Neutral Baby Swaddle Set",img:"https://images.unsplash.com/photo-1519681393784-d120267933ba?w=400",desc:"Gentle wraps in calm, cozy tones.",price:"Price varies"},
-{cat:"baby",title:"Plush Baby Lovey",img:"https://images.unsplash.com/photo-1519681393705-3b1b3f1e0c07?w=400",desc:"A soft companion for naps and bedtime.",price:"Price varies"},
-
-{cat:"tech",title:"Mini Bluetooth Speaker",img:"https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=400",desc:"Compact speaker with warm, clear sound.",price:"Price varies"},
-{cat:"tech",title:"Wireless Earbuds Case",img:"https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=400",desc:"Pocket-friendly audio for daily use.",price:"Price varies"},
-{cat:"tech",title:"Soft-Touch Phone Stand",img:"https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?w=400",desc:"Keep your screen at a comfy angle.",price:"Price varies"},
-{cat:"tech",title:"Cozy Desk Lamp with USB",img:"https://images.unsplash.com/photo-1526498460520-4c246339dccb?w=400",desc:"Warm light for late-night browsing.",price:"Price varies"},
-
-{cat:"home",title:"Aroma Mist Diffuser",img:"https://images.unsplash.com/photo-1601042879364-f6a15d5f2c3b?w=400",desc:"Fill your space with calming scents.",price:"Price varies"},
-{cat:"home",title:"Soft Throw Pillow Set",img:"https://images.unsplash.com/photo-1505691723518-36a5ac3be353?w=400",desc:"Cozy pillows for sofa or bed.",price:"Price varies"},
-{cat:"home",title:"Neutral Knit Throw Blanket",img:"https://images.unsplash.com/photo-1519710164239-da123dc03ef4?w=400",desc:"Layer warmth over any space.",price:"Price varies"},
-{cat:"home",title:"Ceramic Candle Holder",img:"https://images.unsplash.com/photo-1519710164239-da123dc03ef4?w=400",desc:"Soft glow for quiet evenings.",price:"Price varies"},
-
-{cat:"gaming",title:"RGB Gaming Mouse",img:"https://images.unsplash.com/photo-1587202372775-98973a9f5d3a?w=400",desc:"Smooth tracking with soft lighting.",price:"Price varies"},
-{cat:"gaming",title:"Compact Gaming Keyboard",img:"https://images.unsplash.com/photo-1511512578047-dfb367046420?w=400",desc:"Tactile keys in a small footprint.",price:"Price varies"},
-{cat:"gaming",title:"Cozy Wrist Rest",img:"https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=400",desc:"Support for long gaming sessions.",price:"Price varies"},
-{cat:"gaming",title:"Headset Stand with Hook",img:"https://images.unsplash.com/photo-1511512578047-dfb367046420?w=400",desc:"Keep your setup tidy and ready.",price:"Price varies"},
-
-{cat:"kitchen",title:"Nonstick Pan Set",img:"https://images.unsplash.com/photo-1601050690597-df3b1c8a3c6e?w=400",desc:"Everyday cooking made simple.",price:"Price varies"},
-{cat:"kitchen",title:"Glass Storage Containers",img:"https://images.unsplash.com/photo-1588167865096-71c620227d92?w=400",desc:"Store leftovers in clean style.",price:"Price varies"},
-{cat:"kitchen",title:"Wooden Utensil Bundle",img:"https://images.unsplash.com/photo-1514996937319-344454492b37?w=400",desc:"Gentle on cookware, warm in tone.",price:"Price varies"},
-
-{cat:"beauty",title:"Hydrating Face Mist",img:"https://images.unsplash.com/photo-1596464716121-9f3efb1c8f3b?w=400",desc:"A refreshing glow for everyday use.",price:"Price varies"},
-{cat:"beauty",title:"Soft Bristle Face Brush",img:"https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=400",desc:"Gentle exfoliation in your routine.",price:"Price varies"},
-{cat:"beauty",title:"Vanity Organizer Tray",img:"https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=400",desc:"Keep skincare within easy reach.",price:"Price varies"},
-
-{cat:"pets",title:"Soft Pet Bed",img:"https://images.unsplash.com/photo-1619983081563-4305d1a4a6c2?w=400",desc:"A cozy spot for your furry friend.",price:"Price varies"},
-{cat:"pets",title:"Neutral Pet Blanket",img:"https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=400",desc:"Warm layering for naps and nights.",price:"Price varies"},
-{cat:"pets",title:"Simple Pet Toy Set",img:"https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=400",desc:"Gentle playtime essentials.",price:"Price varies"},
-
-{cat:"clothing",title:"Cozy Hoodie",img:"https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400",desc:"Soft, warm, and easy to style.",price:"Price varies"},
-{cat:"clothing",title:"Everyday Joggers",img:"https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=400",desc:"Relaxed fit for home or errands.",price:"Price varies"},
-{cat:"clothing",title:"Neutral Beanie",img:"https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400",desc:"Add warmth without bulk.",price:"Price varies"},
-
-{cat:"cleaning",title:"Microfiber Mop Kit",img:"https://images.unsplash.com/photo-1581579188871-45ea61f2a0c8?w=400",desc:"Keep floors fresh with less effort.",price:"Price varies"},
-{cat:"cleaning",title:"Reusable Cleaning Cloths",img:"https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=400",desc:"Soft cloths for everyday wipe-downs.",price:"Price varies"},
-
-{cat:"organization",title:"Storage Basket Set",img:"https://images.unsplash.com/photo-1582582494700-8a4c1c1ff717?w=400",desc:"Declutter shelves in cozy style.",price:"Price varies"},
-{cat:"organization",title:"Drawer Divider Pack",img:"https://images.unsplash.com/photo-1582582494700-8a4c1c1ff717?w=400",desc:"Keep small items neatly sorted.",price:"Price varies"},
-
-{cat:"outdoors",title:"Portable Lantern",img:"https://images.unsplash.com/photo-1504215680853-026ed2a45def?w=400",desc:"Warm lighting for outdoor nights.",price:"Price varies"},
-{cat:"outdoors",title:"Foldable Camp Chair",img:"https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=400",desc:"Relax comfortably under the sky.",price:"Price varies"},
-
-{cat:"toys",title:"Stacking Toy Set",img:"https://images.unsplash.com/photo-1601758124510-52d1b0baf512?w=400",desc:"Colorful fun for little hands.",price:"Price varies"},
-{cat:"toys",title:"Wooden Shape Sorter",img:"https://images.unsplash.com/photo-1601758124510-52d1b0baf512?w=400",desc:"Playful learning for toddlers.",price:"Price varies"},
-
-{cat:"health",title:"Vitamin Organizer",img:"https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=400",desc:"Keep your daily supplements tidy.",price:"Price varies"},
-{cat:"health",title:"Water Tracker Bottle",img:"https://images.unsplash.com/photo-1514996937319-344454492b37?w=400",desc:"Stay hydrated with gentle reminders.",price:"Price varies"},
-
-{cat:"office",title:"Desk Organizer Tray",img:"https://images.unsplash.com/photo-1587614382346-4ec70e388b28?w=400",desc:"A clean workspace boosts focus.",price:"Price varies"},
-{cat:"office",title:"Soft Mouse Pad",img:"https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=400",desc:"Smooth surface with a cozy look.",price:"Price varies"}
+  {cat:"baby",title:"Cozy Baby Blanket",img:IMAGES.blanket,desc:"Soft, warm, and gentle.",price:"Price varies"},
+  {cat:"baby",title:"Neutral Swaddle",img:IMAGES.swaddle,desc:"Calming beige wrap.",price:"Price varies"},
+  {cat:"tech",title:"Mini Speaker",img:IMAGES.speaker,desc:"Warm, clear sound.",price:"Price varies"},
+  {cat:"tech",title:"Phone Stand",img:IMAGES.stand,desc:"Soft-touch angle support.",price:"Price varies"},
+  {cat:"home",title:"Aroma Diffuser",img:IMAGES.diffuser,desc:"Cozy mist for calm spaces.",price:"Price varies"},
+  {cat:"home",title:"Throw Pillow",img:IMAGES.pillow,desc:"Soft beige comfort.",price:"Price varies"},
+  {cat:"gaming",title:"Gaming Mouse",img:IMAGES.mouse,desc:"Smooth and responsive.",price:"Price varies"},
+  {cat:"gaming",title:"Keyboard",img:IMAGES.keyboard,desc:"Compact and tactile.",price:"Price varies"}
 ];
 
-const productBox=document.getElementById("products"),nores=document.getElementById("nores");
+/* RENDERING */
+const productBox=document.getElementById("products");
+const nores=document.getElementById("nores");
+
 function showProducts(cat="all",q=""){
-productBox.innerHTML="";
-let list=PRODUCTS.filter(p=>(cat==="all"||p.cat===cat)&&(!q||p.title.toLowerCase().includes(q)||p.desc.toLowerCase().includes(q)));
-if(!list.length){nores.style.display="block";return}else nores.style.display="none";
-list.forEach(p=>{let c=document.createElement("div");c.className="card";c.innerHTML=<img src="${p.img}"><div class="info"><div class="title">${p.title}</div><div class="desc">${p.desc}</div><div class="price">${p.price}</div></div>;productBox.appendChild(c);setTimeout(()=>c.classList.add("show"),10);});
+  productBox.innerHTML="";
+  let list=PRODUCTS.filter(p=>
+    (cat==="all"||p.cat===cat) &&
+    (!q||p.title.toLowerCase().includes(q)||p.desc.toLowerCase().includes(q))
+  );
+
+  nores.style.display=list.length?"none":"block";
+
+  list.forEach(p=>{
+    let c=document.createElement("div");
+    c.className="card";
+    c.innerHTML=
+      `<img src="${p.img}">
+       <div class="info">
+         <div class="title">${p.title}</div>
+         <div class="desc">${p.desc}</div>
+         <div class="price">${p.price}</div>
+       </div>`;
+    productBox.appendChild(c);
+  });
 }
-let currentCat="all";showProducts();
-document.querySelectorAll(".chip").forEach(ch=>ch.onclick=()=>{currentCat=ch.dataset.cat;showProducts(currentCat,search.value.trim().toLowerCase());});
-const search=document.getElementById("search");search.oninput=()=>showProducts(currentCat,search.value.trim().toLowerCase());
-document.getElementById("toggle").onclick=()=>document.documentElement.classList.toggle("dark");
-const topbtn=document.getElementById("topbtn");window.onscroll=()=>{topbtn.style.display=window.scrollY>200?"block":"none"};topbtn.onclick=()=>window.scrollTo({top:0,behavior:"smooth"});
-const chatBtn=document.getElementById("chatBtn"),chatBox=document.getElementById("chatBox"),chatMsgs=document.getElementById("chatMsgs"),chatText=document.getElementById("chatText");
-chatBtn.onclick=()=>chatBox.style.display=chatBox.style.display==="flex"?"none":"flex";
-function addMsg(t,cls){let m=document.createElement("div");m.className="msg "+cls;m.textContent=t;chatMsgs.appendChild(m);chatMsgs.scrollTop=chatMsgs.scrollHeight;}
-function fakeAI(msg){msg=msg.toLowerCase();if(msg.includes("baby"))return"Here are some cozy baby items you might like.";if(msg.includes("tech"))return"Looking for tech? I can help you find something modern and useful.";if(msg.includes("gaming"))return"Gaming gear? I’ve got some top picks for you.";if(msg.includes("home"))return"Home essentials coming right up.";if(msg.includes("kitchen"))return"Kitchen basics and cozy cookware sound perfect.";if(msg.includes("pets"))return"Let’s find something soft and comfy for your pet.";return"I’m here to help you browse, compare, and discover cozy everyday deals!";}
-document.getElementById("chatSend").onclick=()=>{let t=chatText.value.trim();if(!t)return;addMsg(t,"user");chatText.value="";setTimeout(()=>addMsg(fakeAI(t),"bot"),350);};
-</script></body></html>
-`
+
+/* INITIAL LOAD */
+let currentCat="all";
+showProducts();
+
+/* CATEGORY FILTERS */
+document.querySelectorAll(".chip").forEach(ch=>{
+  ch.onclick=()=>{
+    currentCat=ch.dataset.cat;
+    showProducts(currentCat,search.value.trim().toLowerCase());
+  };
+});
+
+/* SEARCH */
+search.oninput=()=>showProducts(currentCat,search.value.trim().toLowerCase());
+</script>
+
+</body>
+</html>

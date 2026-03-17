@@ -1,192 +1,80 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Everyday Deals</title>
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Everyday Deals</title><style>
+:root{--bg:#F7F5EF;--card:#fff;--primary:#6BAA75;--primary-dark:#2F5D50;--text:#4A4A4A;--border:#DCE7DF;}
+body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,sans-serif;}
+header{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;background:var(--card);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:10;}
+.logo{font-size:20px;font-weight:700;color:var(--primary-dark);}
+nav a{margin-left:16px;color:var(--primary-dark);text-decoration:none;font-weight:600;}
+.menu-btn{display:none;font-size:26px;background:none;border:none;color:var(--primary-dark);}
+#mobile-menu{display:none;flex-direction:column;background:var(--card);border-bottom:1px solid var(--border);}
+#mobile-menu a{padding:12px 20px;border-top:1px solid var(--border);color:var(--primary-dark);text-decoration:none;font-weight:600;}
+.hero{padding:40px 20px;text-align:center;}
+.hero h1{margin:0;font-size:32px;color:var(--primary-dark);}
+.grid{display:grid;gap:14px;padding:20px;}
+@media(min-width:600px){.grid{grid-template-columns:repeat(2,1fr);}}
+@media(min-width:900px){.grid{grid-template-columns:repeat(4,1fr);}}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;box-shadow:0 2px 6px rgba(0,0,0,0.05);}
+.card img{width:100%;border-radius:8px;}
+.card h3{margin:10px 0 6px;font-size:16px;color:var(--primary-dark);}
+.card p{margin:0 0 10px;font-size:14px;}
+button{width:100%;padding:10px;border:none;border-radius:6px;background:var(--primary);color:#fff;font-weight:600;}
+button:hover{background:var(--primary-dark);}
 
-<style>
-body{margin:0;font-family:'Segoe UI',sans-serif;background:#faf9f7;color:#3a3a3a;transition:.3s;}
-body.dark{background:#1e1e1e;color:#e6e6e6;}
-body.dark header{background:#2a2a2a;border-bottom:1px solid #444;}
-body.dark .menu-panel{background:#2a2a2a;}
-body.dark .card{background:#2a2a2a;box-shadow:0 3px 8px #0005;}
-body.dark footer{background:#2a2a2a;color:#ccc;}
-
-header{padding:10px 14px;background:#fff;position:sticky;top:0;z-index:200;box-shadow:0 2px 6px #0001;border-bottom:1px solid #f0ebe6;display:flex;align-items:center;gap:8px;}
-.logo{font-size:15px;font-weight:700;}
-#search{flex:1;padding:6px 10px;border:1px solid #e6ddd4;border-radius:999px;background:#fdfbf8;font-size:11px;}
-#menuBtn{font-size:18px;background:none;border:none;cursor:pointer;}
-
-.menu-panel{display:none;background:#f3ede6;padding:12px;border-bottom:1px solid #e0d8d0;}
-.menu-panel button{width:100%;padding:8px;margin-bottom:6px;background:#e8e1d9;border:none;border-radius:6px;font-size:12px;cursor:pointer;}
-.menu-panel .close{background:#d8cfc4;}
-
-.hero{text-align:center;padding:18px;background:#f3ede6;}
-.hero h1{margin:0;font-size:16px;font-weight:700;}
-.hero p{margin:4px 0 0;font-size:11px;color:#5a5a5a;}
-.shopbtn{margin-top:10px;padding:7px 14px;background:#d8cfc4;border-radius:999px;font-size:11px;display:inline-block;cursor:pointer;}
-
-.products{padding:10px;display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;}
-.card{background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 2px 6px #0001;opacity:0;transform:translateY(8px);animation:fade .3s forwards;}
-@keyframes fade{to{opacity:1;transform:translateY(0);}}
-.card img{width:100%;height:110px;object-fit:cover;}
-.card .info{padding:6px;}
-.card .title{font-size:11px;font-weight:600;margin-bottom:2px;}
-.card .desc{font-size:10px;color:#6a6a6a;margin-bottom:2px;}
-.card .price{font-size:10px;color:#444;}
-
-#nores{text-align:center;padding:12px;display:none;color:#7a7a7a;font-size:11px;}
-
-footer{margin-top:20px;padding:14px;text-align:center;background:#f3ede6;color:#555;font-size:11px;}
-
-#aiBubble{position:fixed;bottom:14px;right:14px;width:42px;height:42px;background:#e8dfd6;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;cursor:pointer;box-shadow:0 3px 8px #0003;z-index:300;}
-#aiWindow{position:fixed;bottom:70px;right:14px;width:240px;background:#f7f3ef;border-radius:10px;box-shadow:0 3px 12px #0003;display:none;flex-direction:column;z-index:300;}
-#aiHeader{padding:8px;background:#e8dfd6;border-radius:10px 10px 0 0;font-size:12px;font-weight:600;}
-#aiMessages{padding:8px;height:160px;overflow-y:auto;font-size:11px;}
-#aiInput{display:flex;border-top:1px solid #e0d8d0;}
-#aiInput input{flex:1;padding:6px;border:none;background:#fdfbf8;font-size:11px;}
-#aiInput button{padding:6px 10px;border:none;background:#d8cfc4;cursor:pointer;font-size:11px;}
-</style>
-</head>
-
-<body>
+/* AI Chat Bubble */
+#chat-btn{position:fixed;bottom:20px;right:20px;background:var(--primary);color:#fff;border:none;border-radius:50%;width:60px;height:60px;font-size:26px;box-shadow:0 4px 10px rgba(0,0,0,0.2);}
+#chat-box{position:fixed;bottom:90px;right:20px;width:280px;background:var(--card);border:1px solid var(--border);border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,0.15);display:none;flex-direction:column;}
+#chat-header{padding:12px;background:var(--primary-dark);color:#fff;border-radius:12px 12px 0 0;font-weight:700;}
+#chat-messages{padding:10px;height:200px;overflow-y:auto;font-size:14px;}
+#chat-input{display:flex;border-top:1px solid var(--border);}
+#chat-input input{flex:1;padding:10px;border:none;}
+#chat-input button{width:60px;background:var(--primary-dark);border:none;color:#fff;}
+</style></head><body>
 
 <header>
-  <div class="logo">EVERYDAY DEALS</div>
-  <input id="search" placeholder="Search products...">
-  <button id="menuBtn">☰</button>
+<div class="logo">Everyday Deals</div>
+<nav class="desktop-nav"><a href="#">Home</a><a href="#">Deals</a><a href="#">Categories</a></nav>
+<button class="menu-btn" onclick="toggleMenu()">☰</button>
 </header>
 
-<div class="menu-panel" id="menuPanel">
-  <button data-cat="baby">Baby</button>
-  <button data-cat="tech">Tech</button>
-  <button data-cat="home">Home</button>
-  <button data-cat="gaming">Gaming</button>
-  <button id="darkToggle">Toggle Dark Mode</button>
-  <button class="close" id="closeMenu">Close</button>
-</div>
+<div id="mobile-menu"><a href="#">Home</a><a href="#">Deals</a><a href="#">Categories</a></div>
 
-<div class="hero">
-  <h1>Cozy Everyday Picks</h1>
-  <p>Warm, simple, and parent‑friendly finds.</p>
-  <div class="shopbtn" onclick="cat='all';show();">Shop All</div>
-</div>
+<section class="hero"><h1>Find Your Everyday Essentials</h1></section>
 
-<div id="nores">No matching products found.</div>
-<div class="products" id="products"></div>
+<section class="grid">
+<div class="card"><img src="https://via.placeholder.com/300x200"><h3>Product One</h3><p>Short description here.</p><button>View</button></div>
+<div class="card"><img src="https://via.placeholder.com/300x200"><h3>Product Two</h3><p>Short description here.</p><button>View</button></div>
+<div class="card"><img src="https://via.placeholder.com/300x200"><h3>Product Three</h3><p>Short description here.</p><button>View</button></div>
+<div class="card"><img src="https://via.placeholder.com/300x200"><h3>Product Four</h3><p>Short description here.</p><button>View</button></div>
+<div class="card"><img src="https://via.placeholder.com/300x200"><h3>Product Five</h3><p>Short description here.</p><button>View</button></div>
+<div class="card"><img src="https://via.placeholder.com/300x200"><h3>Product Six</h3><p>Short description here.</p><button>View</button></div>
+<div class="card"><img src="https://via.placeholder.com/300x200"><h3>Product Seven</h3><p>Short description here.</p><button>View</button></div>
+<div class="card"><img src="https://via.placeholder.com/300x200"><h3>Product Eight</h3><p>Short description here.</p><button>View</button></div>
+</section>
 
-<footer>© 2026 Everyday Deals</footer>
-
-<div id="aiBubble">💬</div>
-
-<div id="aiWindow">
-  <div id="aiHeader">Cozy Helper</div>
-  <div id="aiMessages"></div>
-  <div id="aiInput">
-    <input id="aiText" placeholder="Ask me anything...">
-    <button id="aiSend">Send</button>
-  </div>
+<button id="chat-btn" onclick="toggleChat()">💬</button>
+<div id="chat-box">
+<div id="chat-header">Cozy Helper</div>
+<div id="chat-messages"></div>
+<div id="chat-input"><input id="chat-text" placeholder="Type..."><button onclick="sendMsg()">➤</button></div>
 </div>
 
 <script>
-/* IMAGES */
-const IMAGES={
- blanket:"https://images.unsplash.com/photo-1604335399105-7a4d7a8f4e70?auto=format&fit=crop&w=600&q=80",
- swaddle:"https://images.unsplash.com/photo-1617038260897-1e94c3b5c832?auto=format&fit=crop&w=600&q=80",
- speaker:"https://images.unsplash.com/photo-1585386959984-a4155224a1a1?auto=format&fit=crop&w=600&q=80",
- stand:"https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=600&q=80",
- diffuser:"https://images.unsplash.com/photo-1600172454132-5c4f0e90a962?auto=format&fit=crop&w=600&q=80",
- pillow:"https://images.unsplash.com/photo-1616628182509-1e0adf7eecca?auto=format&fit=crop&w=600&q=80",
- mouse:"https://images.unsplash.com/photo-1587825140708-8a9f7f4c8ad5?auto=format&fit=crop&w=600&q=80",
- keyboard:"https://images.unsplash.com/photo-1587829741301-1e8b98cbfbac?auto=format&fit=crop&w=600&q=80"
-};
+function toggleMenu(){let m=document.getElementById("mobile-menu");m.style.display=m.style.display==="flex"?"none":"flex";}
+function toggleChat(){let c=document.getElementById("chat-box");c.style.display=c.style.display==="flex"?"none":"flex";}
 
-/* PRODUCTS */
-const PRODUCTS=[
- {cat:"baby",title:"Cozy Baby Blanket",img:IMAGES.blanket,desc:"Soft, warm, and gentle.",price:"Price varies"},
- {cat:"baby",title:"Neutral Swaddle",img:IMAGES.swaddle,desc:"Calming beige wrap.",price:"Price varies"},
- {cat:"tech",title:"Mini Speaker",img:IMAGES.speaker,desc:"Warm, clear sound.",price:"Price varies"},
- {cat:"tech",title:"Phone Stand",img:IMAGES.stand,desc:"Soft-touch angle support.",price:"Price varies"},
- {cat:"home",title:"Aroma Diffuser",img:IMAGES.diffuser,desc:"Cozy mist for calm spaces.",price:"Price varies"},
- {cat:"home",title:"Throw Pillow",img:IMAGES.pillow,desc:"Soft beige comfort.",price:"Price varies"},
- {cat:"gaming",title:"Gaming Mouse",img:IMAGES.mouse,desc:"Smooth and responsive.",price:"Price varies"},
- {cat:"gaming",title:"Keyboard",img:IMAGES.keyboard,desc:"Compact and tactile.",price:"Price varies"}
-];
-
-/* ELEMENTS */
-const box=document.getElementById("products"),
- nores=document.getElementById("nores"),
- search=document.getElementById("search");
-
-/* RENDER */
-let cat="all";
-function show(catNow=cat,q=""){
- box.innerHTML="";
- const list=PRODUCTS.filter(p=>(catNow==="all"||p.cat===catNow)&&(!q||p.title.toLowerCase().includes(q)||p.desc.toLowerCase().includes(q)));
- nores.style.display=list.length?"none":"block";
- list.forEach(p=>{
-  box.innerHTML+=`
-  <div class="card">
-    <img src="${p.img}">
-    <div class="info">
-      <div class="title">${p.title}</div>
-      <div class="desc">${p.desc}</div>
-      <div class="price">${p.price}</div>
-    </div>
-  </div>`;
- });
+function sendMsg(){
+let box=document.getElementById("chat-messages");
+let text=document.getElementById("chat-text").value.trim();
+if(!text)return;
+box.innerHTML+=`<div><b>You:</b> ${text}</div>`;
+let reply="I'm here to help with anything you need.";
+if(text.toLowerCase().includes("baby"))reply="Aww, looking for baby essentials? I can help you find cozy, safe picks.";
+if(text.toLowerCase().includes("tech"))reply="Tech upgrades? I can guide you to the best everyday gadgets.";
+if(text.toLowerCase().includes("home"))reply="Home comforts make everything better. Want soft lighting or cozy decor ideas?";
+if(text.toLowerCase().includes("gaming"))reply="Gaming gear? I can help you find comfy, budget-friendly setups.";
+box.innerHTML+=`<div><b>AI:</b> ${reply}</div>`;
+document.getElementById("chat-text").value="";
+box.scrollTop=box.scrollHeight;
 }
-show();
-
-/* MENU */
-const menuBtn=document.getElementById("menuBtn"),
- menuPanel=document.getElementById("menuPanel"),
- closeMenu=document.getElementById("closeMenu"),
- darkToggle=document.getElementById("darkToggle");
-
-menuBtn.onclick=()=>menuPanel.style.display="block";
-closeMenu.onclick=()=>menuPanel.style.display="none";
-darkToggle.onclick=()=>document.body.classList.toggle("dark");
-
-document.querySelectorAll(".menu-panel button[data-cat]").forEach(b=>{
- b.onclick=()=>{cat=b.dataset.cat;show(cat,search.value.trim().toLowerCase());menuPanel.style.display="none";}
-});
-
-/* SEARCH */
-search.oninput=()=>show(cat,search.value.trim().toLowerCase());
-
-/* AI CHAT */
-const aiBubble=document.getElementById("aiBubble"),
- aiWindow=document.getElementById("aiWindow"),
- aiMessages=document.getElementById("aiMessages"),
- aiText=document.getElementById("aiText"),
- aiSend=document.getElementById("aiSend");
-
-aiBubble.onclick=()=>aiWindow.style.display=aiWindow.style.display==="flex"?"none":"flex";
-
-function aiReply(msg){
- msg=msg.toLowerCase();
- if(msg.includes("baby"))return"Here’s something soft and cozy for little ones.";
- if(msg.includes("tech"))return"Looking for tech? I can help you find something simple and useful.";
- if(msg.includes("home"))return"Home items that feel warm and calming are my specialty.";
- if(msg.includes("gaming"))return"Gaming gear? I’ve got some comfy picks.";
- if(msg.includes("help"))return"I’m right here — what do you need?";
- return"I’m here to help anytime. Just tell me what you’re looking for.";
-}
-
-function sendAI(){
- const t=aiText.value.trim();
- if(!t)return;
- aiMessages.innerHTML+=`<div><b>You:</b> ${t}</div>`;
- aiMessages.innerHTML+=`<div><b>Cozy:</b> ${aiReply(t)}</div>`;
- aiText.value="";
- aiMessages.scrollTop=aiMessages.scrollHeight;
-}
-
-aiSend.onclick=sendAI;
-aiText.onkeypress=e=>{if(e.key==="Enter")sendAI();}
 </script>
 
-</body>
-</html>
+</body></html>

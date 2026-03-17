@@ -1,104 +1,298 @@
-<script>
-    // Year in footer
-    document.getElementById("year").textContent = new Date().getFullYear();
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dakota’s Amazon Picks</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    const buttons = document.querySelectorAll(".cat-btn");
-    const cards = document.querySelectorAll(".product-card");
-    const searchBar = document.getElementById("searchBar");
-    const suggestionsBox = document.getElementById("suggestions");
-    const noResults = document.getElementById("noResults");
-    const voiceBtn = document.getElementById("voiceBtn");
-
-    let activeCategory = "all";
-    let currentTerm = "";
-
-    // Collect product names for suggestions
-    const productNames = Array.from(cards).map(card => card.querySelector("h3").innerText);
-
-    // MASTER FILTER FUNCTION
-    function applyFilters() {
-        let matchCount = 0;
-        const term = currentTerm.toLowerCase();
-
-        cards.forEach(card => {
-            const cardCat = card.dataset.cat;
-            const text = card.innerText.toLowerCase();
-
-            const categoryMatch = (activeCategory === "all") || (cardCat === activeCategory);
-            const textMatch = text.includes(term);
-
-            if (categoryMatch && textMatch) {
-                card.style.display = "block";
-                matchCount++;
-            } else {
-                card.style.display = "none";
-            }
-        });
-
-        noResults.style.display = matchCount === 0 ? "block" : "none";
-    }
-
-    // CATEGORY FILTER
-    buttons.forEach(btn => {
-        btn.addEventListener("click", () => {
-            buttons.forEach(b => b.classList.remove("active"));
-            btn.classList.add("active");
-            activeCategory = btn.dataset.cat;
-            applyFilters();
-        });
-    });
-
-    // SEARCH + SUGGESTIONS
-    searchBar.addEventListener("input", () => {
-        currentTerm = searchBar.value;
-        applyFilters();
-
-        const term = currentTerm.toLowerCase();
-        if (term.length === 0) {
-            suggestionsBox.style.display = "none";
-            suggestionsBox.innerHTML = "";
-            return;
+    <style>
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: #faf7f2;
+            color: #333;
         }
 
-        const matches = productNames.filter(name =>
-            name.toLowerCase().includes(term)
-        );
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
 
-        suggestionsBox.innerHTML = "";
-        matches.forEach(name => {
-            const div = document.createElement("div");
-            div.classList.add("suggestion-item");
-            div.innerText = name;
+        header {
+            background: #ffffff;
+            padding: 20px 26px;
+            box-shadow: 0 2px 14px rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
 
-            div.addEventListener("click", () => {
-                searchBar.value = name;
-                currentTerm = name;
-                applyFilters();
-                suggestionsBox.style.display = "none";
-            });
+        header h2 {
+            margin: 0;
+            font-weight: 700;
+            color: #444;
+        }
 
-            suggestionsBox.appendChild(div);
-        });
+        nav {
+            display: flex;
+            gap: 18px;
+        }
 
-        suggestionsBox.style.display = matches.length ? "block" : "none";
-    });
+        nav a {
+            text-decoration: none;
+            color: #555;
+            font-weight: 600;
+            font-size: 14px;
+            transition: 0.2s;
+        }
 
-    // VOICE SEARCH
-    if (voiceBtn && (window.SpeechRecognition || window.webkitSpeechRecognition)) {
-        voiceBtn.addEventListener("click", () => {
-            const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-            const recognition = new Recognition();
-            recognition.lang = "en-US";
-            recognition.start();
+        nav a:hover {
+            color: #8aa899;
+        }
 
-            recognition.onresult = (event) => {
-                const spoken = event.results[0][0].transcript;
-                searchBar.value = spoken;
-                currentTerm = spoken;
-                applyFilters();
-            };
-        });
-    } else if (voiceBtn) {
-        voiceBtn.style.display = "none";
-    }
-</script>
+        .hero {
+            background: #fdf9f3;
+            text-align: center;
+            padding: 70px 20px 40px;
+            border-bottom: 1px solid #f0e8dd;
+        }
+
+        .hero h1 {
+            font-size: 40px;
+            margin-bottom: 10px;
+            color: #444;
+        }
+
+        .hero p {
+            font-size: 17px;
+            color: #666;
+            max-width: 520px;
+            margin: 0 auto 20px;
+        }
+
+        .search-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+
+        #searchBar {
+            padding: 14px 20px;
+            width: 280px;
+            max-width: 90%;
+            border-radius: 14px;
+            border: 2px solid #e6e2d8;
+            background: #fdfbf7;
+            font-size: 16px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.06);
+            transition: 0.25s;
+        }
+
+        #searchBar:focus {
+            border-color: #cfc7b8;
+            background: #ffffff;
+            outline: none;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+        }
+
+        .voice-btn {
+            padding: 10px 14px;
+            border-radius: 50%;
+            border: none;
+            background: #e6e2d8;
+            cursor: pointer;
+            font-size: 18px;
+            transition: 0.2s;
+        }
+
+        .voice-btn:hover {
+            background: #d6d1c7;
+        }
+
+        .suggestions-box {
+            max-width: 300px;
+            margin: 8px auto 0;
+            background: #ffffff;
+            border: 1px solid #e6e2d8;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            display: none;
+            position: relative;
+            z-index: 200;
+            text-align: left;
+        }
+
+        .suggestion-item {
+            padding: 10px 14px;
+            cursor: pointer;
+            font-size: 14px;
+            color: #444;
+        }
+
+        .suggestion-item:hover {
+            background: #f7f3eb;
+        }
+
+        #categories {
+            text-align: center;
+            padding: 30px 20px 10px;
+        }
+
+        .cat-btn {
+            padding: 10px 18px;
+            border: none;
+            border-radius: 999px;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            transition: 0.2s;
+            margin: 6px;
+            font-size: 14px;
+        }
+
+        .cat-btn[data-cat="baby"] { background: #d8e7f7; color:#3a4a5a; }
+        .cat-btn[data-cat="tech"] { background: #e8ddf7; color:#4a3f5a; }
+        .cat-btn[data-cat="home"] { background: #dff2e4; color:#3a5a46; }
+        .cat-btn[data-cat="gaming"] { background: #f7e4d1; color:#5a463a; }
+        .cat-btn[data-cat="all"] { background: #f0dff7; color:#4a3a5a; }
+
+        .cat-btn.active {
+            box-shadow: 0 0 0 2px rgba(0,0,0,0.06);
+        }
+
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 22px;
+            padding: 10px 20px 10px;
+        }
+
+        .product-card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 18px;
+            border: 1px solid #f0f0f0;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.04);
+            text-align: left;
+            transition: 0.25s;
+            opacity: 0;
+            transform: translateY(16px);
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        .product-card img {
+            width: 100%;
+            max-height: 190px;
+            object-fit: contain;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            background: #faf7f2;
+        }
+
+        .product-card h3 {
+            font-size: 16px;
+            margin-bottom: 6px;
+            color: #444;
+        }
+
+        .product-card p {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .product-meta {
+            font-size: 13px;
+            color: #999;
+            margin-bottom: 10px;
+        }
+
+        .product-card a {
+            display: inline-block;
+            padding: 9px 14px;
+            background: #8aa899;
+            color: white;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 13px;
+            transition: 0.2s;
+        }
+
+        .product-card a:hover {
+            background: #7a9688;
+        }
+
+        .about {
+            background: #fdf9f3;
+            padding: 40px 20px 30px;
+            border-top: 1px solid #f0e8dd;
+            border-bottom: 1px solid #f0e8dd;
+        }
+
+        footer {
+            text-align: center;
+            padding: 18px 10px 26px;
+            font-size: 13px;
+            color: #888;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+<header>
+    <h2>Dakota’s Amazon Picks</h2>
+    <nav>
+        <a href="#top">Home</a>
+        <a href="#categories">Categories</a>
+        <a href="#products">Products</a>
+        <a href="#about">About</a>
+    </nav>
+</header>
+
+<main id="top">
+    <section class="hero">
+        <h1>Cozy, Clean & Colorful Finds</h1>
+        <p>Curated Amazon picks for Baby, Tech, Home, and Gaming—hand‑picked to feel calm, practical, and parent‑friendly.</p>
+
+        <div class="search-wrapper">
+            <input type="text" id="searchBar" placeholder="Search products by name or category...">
+            <button id="voiceBtn" class="voice-btn">🎤</button>
+        </div>
+
+        <div id="suggestions" class="suggestions-box"></div>
+    </section>
+
+    <section id="categories">
+        <button class="cat-btn active" data-cat="all">All</button>
+        <button class="cat-btn" data-cat="baby">Baby</button>
+        <button class="cat-btn" data-cat="tech">Tech</button>
+        <button class="cat-btn" data-cat="home">Home</button>
+        <button class="cat-btn" data-cat="gaming">Gaming</button>
+    </section>
+
+    <h2 class="section-title" id="products">Featured products</h2>
+
+    <section class="products">
+        <!-- PRODUCT CARDS (same as before) -->
+        <!-- I kept all your original cards exactly the same -->
+        <!-- You can replace images + links whenever you're ready -->
+        
+        <div class="product-card" data-cat="baby">
+            <img src="https://via.placeholder.com/300x200?text=Baby+Monitor">
+            <h3>Video Baby Monitor with Camera & Night Vision</h3>
+            <p>Clear video, two‑way audio, and night vision so you can check on baby without leaving your cozy spot.</p>
+            <div class="product-meta">

@@ -1,94 +1,200 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Everyday Deals</title><style>
-body{margin:0;font-family:'Segoe UI',sans-serif;background:#faf9f7;color:#3a3a3a}
-header{padding:20px;background:#fff;position:sticky;top:0;z-index:20;box-shadow:0 3px 8px #0001;border-bottom:1px solid #f0ebe6}
-.logo{font-size:22px;font-weight:700;letter-spacing:1px;color:#3a3a3a;margin-bottom:10px}
-#search{width:90%;max-width:500px;padding:12px 16px;border:1px solid #e6ddd4;border-radius:12px;background:#fdfbf8;font-size:15px;display:block;margin:0 auto}
-.dropdown{width:100%;display:flex;justify-content:center;margin-top:12px;position:relative;z-index:30}
-.dropdown-btn{padding:12px 20px;background:#f3ede6;border:none;border-radius:12px;font-size:15px;color:#4a4a4a;cursor:pointer;box-shadow:0 3px 8px #0001;transition:.2s}
-.dropdown-btn:hover{background:#e8e0d8}
-.dropdown-menu{position:absolute;top:55px;background:#fff;width:220px;border-radius:14px;box-shadow:0 4px 12px #0002;padding:10px 0;display:none;flex-direction:column}
-.drop-item{padding:12px 18px;font-size:14px;color:#4a4a4a;cursor:pointer;transition:.2s}
-.drop-item:hover{background:#f3ede6;border-radius:8px}
+body{margin:0;font-family:'Segoe UI',sans-serif;background:#faf9f7;color:#3a3a3a;transition:.3s}
+.dark body{background:#1f1f1f;color:#e6e6e6}
+header{padding:20px;background:#fff;position:sticky;top:0;z-index:100;box-shadow:0 3px 8px #0001;border-bottom:1px solid #f0ebe6;transition:.3s}
+.dark header{background:#2a2a2a;border-color:#333}
+.logo{font-size:22px;font-weight:700;letter-spacing:1px;margin-bottom:10px}
+#search{width:90%;max-width:500px;padding:12px 16px;border:1px solid #e6ddd4;border-radius:12px;background:#fdfbf8;font-size:15px;display:block;margin:0 auto;transition:.3s}
+.dark #search{background:#333;border-color:#444;color:#eee}
+.toggle{position:absolute;top:20px;right:20px;font-size:20px;cursor:pointer}
+.hero{padding:40px 20px;text-align:center;background:linear-gradient(180deg,#f3ede6 0%,#faf9f7 100%);transition:.3s}
+.dark .hero{background:linear-gradient(180deg,#2a2a2a 0%,#1f1f1f 100%)}
+.hero h1{margin:0;font-size:22px;font-weight:700;letter-spacing:1px}
+.hero p{margin:10px 0 0;font-size:14px;color:#5a5a5a}
+.dark .hero p{color:#ccc}
+.chips{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:15px 0}
+.chip{padding:8px 14px;background:#f3ede6;border-radius:20px;font-size:13px;cursor:pointer;transition:.2s}
+.chip:hover{background:#e8e0d8}
+.dark .chip{background:#333;color:#eee}
+.featured{padding:20px}
+.featured h3{text-align:center;margin:0 0 15px;font-size:18px;font-weight:600}
+.fgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:15px}
+.fitem{background:#fff;border-radius:14px;box-shadow:0 3px 8px #0001;padding:10px;text-align:center;position:relative;transition:.3s}
+.dark .fitem{background:#2a2a2a}
+.badge{position:absolute;top:8px;left:8px;background:#ff6f61;color:#fff;font-size:11px;padding:3px 6px;border-radius:6px;animation:pulse 1.5s infinite}
+@keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.1)}100%{transform:scale(1)}}
+.fitem img{width:100%;height:120px;object-fit:cover;border-radius:10px;background:#f7f4f0}
 .products{padding:25px;display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:20px}
-.card{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 10px #0001;cursor:pointer;opacity:0;transform:translateY(12px);transition:.35s}
+.card{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 10px #0001;cursor:pointer;opacity:0;transform:translateY(12px);transition:.35s;position:relative}
+.dark .card{background:#2a2a2a}
+.sale{position:absolute;top:10px;right:10px;background:#ff6f61;color:#fff;font-size:11px;padding:4px 7px;border-radius:6px;animation:pulse 1.5s infinite}
 .card.show{opacity:1;transform:translateY(0)}
 .card img{width:100%;height:170px;object-fit:cover;background:#f7f4f0}
 .card .info{padding:14px}
-.card .title{font-size:15px;font-weight:600;margin-bottom:6px;color:#3a3a3a}
-.card .desc{font-size:13px;color:#6a6a6a;margin-bottom:8px}
-.card .price{font-size:13px;color:#4a4a4a}
+.card .title{font-size:15px;font-weight:600;margin-bottom:6px}
+.card .desc{font-size:13px;color:#6a6a6a}
+.dark .card .desc{color:#ccc}
+.card .price{font-size:13px}
 #nores{text-align:center;padding:25px;display:none;color:#7a7a7a}
+footer{padding:20px;text-align:center;font-size:12px;color:#7a7a7a;background:#fff;border-top:1px solid #eee;margin-top:30px;transition:.3s}
+.dark footer{background:#2a2a2a;color:#aaa;border-color:#333}
+#topbtn{position:fixed;bottom:90px;right:20px;background:#f3ede6;padding:12px;border-radius:50%;cursor:pointer;display:none;box-shadow:0 3px 8px #0003}
+.dark #topbtn{background:#333;color:#eee}
+#cart{position:fixed;bottom:150px;right:20px;background:#f3ede6;padding:14px;border-radius:50%;cursor:pointer;box-shadow:0 3px 8px #0003}
+.dark #cart{background:#333;color:#eee}
+.nav{position:fixed;bottom:0;left:0;width:100%;background:#f3ede6;display:flex;justify-content:space-around;padding:10px 0;box-shadow:0 -3px 8px #0002}
+.dark .nav{background:#2a2a2a}
+.nav div{text-align:center;font-size:12px}
+#chatBtn{position:fixed;bottom:210px;right:20px;background:#f3ede6;padding:14px;border-radius:50%;cursor:pointer;box-shadow:0 3px 8px #0003;font-size:20px;z-index:200}
+.dark #chatBtn{background:#333;color:#eee}
+#chatBox{position:fixed;bottom:80px;right:20px;width:280px;background:#fff;border-radius:16px;box-shadow:0 4px 12px #0003;display:none;flex-direction:column;overflow:hidden;z-index:200}
+.dark #chatBox{background:#2a2a2a;color:#eee}
+#chatHead{padding:12px;background:#f3ede6;font-weight:600;text-align:center}
+.dark #chatHead{background:#333}
+#chatMsgs{padding:10px;height:260px;overflow-y:auto;font-size:13px}
+.msg{margin-bottom:10px;padding:8px 10px;border-radius:10px;max-width:80%}
+.user{background:#d9f0ff;margin-left:auto}
+.bot{background:#f3ede6}
+.dark .bot{background:#444}
+#chatInput{display:flex;border-top:1px solid #eee}
+#chatInput input{flex:1;padding:10px;border:none;font-size:13px;background:#fafafa}
+.dark #chatInput input{background:#333;color:#eee}
+#chatInput button{padding:10px 14px;border:none;background:#f3ede6;cursor:pointer}
+.dark #chatInput button{background:#444;color:#eee}
 </style></head><body>
 
 <header>
 <div class="logo">EVERYDAY DEALS</div>
+<div class="toggle" id="toggle">🌙</div>
 <input id="search" placeholder="Search products...">
 </header>
 
-<div class="dropdown">
-<button class="dropdown-btn">Categories ▾</button>
-<div class="dropdown-menu">
-<div class="drop-item" data-cat="all">All</div>
-<div class="drop-item" data-cat="baby">Baby</div>
-<div class="drop-item" data-cat="tech">Tech</div>
-<div class="drop-item" data-cat="home">Home</div>
-<div class="drop-item" data-cat="gaming">Gaming</div>
-<div class="drop-item" data-cat="budget">Budget Friendly</div>
-<div class="drop-item" data-cat="top">Top Selling</div>
-</div>
+<div class="hero">
+<h1>FIND EVERYDAY ESSENTIALS AT COZY PRICES</h1>
+<p>Curated picks for home, tech, baby, and more.</p>
 </div>
 
-<div id="nores">No products found</div>
-<section class="products" id="grid"></section>
+<div class="chips">
+<div class="chip" data-cat="baby">Baby</div>
+<div class="chip" data-cat="tech">Tech</div>
+<div class="chip" data-cat="home">Home</div>
+<div class="chip" data-cat="gaming">Gaming</div>
+<div class="chip" data-cat="beauty">Beauty</div>
+<div class="chip" data-cat="kitchen">Kitchen</div>
+<div class="chip" data-cat="cleaning">Cleaning</div>
+<div class="chip" data-cat="organization">Organization</div>
+<div class="chip" data-cat="pets">Pets</div>
+<div class="chip" data-cat="outdoors">Outdoors</div>
+<div class="chip" data-cat="clothing">Clothing</div>
+<div class="chip" data-cat="toys">Toys</div>
+<div class="chip" data-cat="health">Health</div>
+<div class="chip" data-cat="office">Office</div>
+<div class="chip" data-cat="budget">Budget</div>
+<div class="chip" data-cat="top">Top</div>
+</div>
+
+<div class="featured">
+<h3>Featured Deals</h3>
+<div class="fgrid">
+<div class="fitem"><div class="badge">HOT</div><img src="https://via.placeholder.com/300?text=Deal+1"><div>Featured Cozy Item</div></div>
+<div class="fitem"><div class="badge">SALE</div><img src="https://via.placeholder.com/300?text=Deal+2"><div>Top Pick of the Week</div></div>
+<div class="fitem"><div class="badge">NEW</div><img src="https://via.placeholder.com/300?text=Deal+3"><div>Fresh Arrival</div></div>
+</div></div>
+
+<div class="products" id="products"></div>
+<div id="nores">No matching products found.</div>
+
+<footer>© 2026 Everyday Deals — Cozy curated finds.</footer>
+
+<div id="topbtn">↑</div>
+<div id="cart">🛒</div>
+
+<div class="nav">
+<div>Home</div><div>Categories</div><div>Search</div><div>Deals</div><div>Cart</div>
+</div>
+
+<div id="chatBtn">💬</div>
+<div id="chatBox">
+<div id="chatHead">AI Assistant</div>
+<div id="chatMsgs"></div>
+<div id="chatInput">
+<input id="chatText" placeholder="Ask me anything...">
+<button id="chatSend">➤</button>
+</div></div>
 
 <script>
-// FAKE PRODUCTS (10)
 const PRODUCTS=[
-{cat:"baby",title:"Cozy Baby Blanket",img:"https://via.placeholder.com/300?text=Blanket",desc:"Soft and gentle everyday comfort.",price:"Price varies",url:"#",priceTag:"budget",rankTag:"top"},
-{cat:"baby",title:"Travel Bottle Heater",img:"https://via.placeholder.com/300?text=Heater",desc:"Warm bottles on the go with ease.",price:"Price varies",url:"#",priceTag:"budget",rankTag:"top"},
-{cat:"tech",title:"Mini Bluetooth Speaker",img:"https://via.placeholder.com/300?text=Speaker",desc:"Compact speaker with warm sound.",price:"Price varies",url:"#",priceTag:"budget",rankTag:"top"},
-{cat:"tech",title:"Smart LED Plug",img:"https://via.placeholder.com/300?text=Smart+Plug",desc:"Control devices from anywhere.",price:"Price varies",url:"#",priceTag:"budget",rankTag:"top"},
-{cat:"home",title:"Aroma Mist Diffuser",img:"https://via.placeholder.com/300?text=Diffuser",desc:"Fill your home with calming scents.",price:"Price varies",url:"#",priceTag:"budget",rankTag:"top"},
-{cat:"home",title:"Soft Glow Lamp",img:"https://via.placeholder.com/300?text=Lamp",desc:"Warm ambient lighting for any room.",price:"Price varies",url:"#",priceTag:"budget",rankTag:"top"},
-{cat:"gaming",title:"RGB Gaming Mouse",img:"https://via.placeholder.com/300?text=Mouse",desc:"Smooth tracking with soft lighting.",price:"Price varies",url:"#",priceTag:"budget",rankTag:"top"},
-{cat:"gaming",title:"Comfort Gaming Headset",img:"https://via.placeholder.com/300?text=Headset",desc:"Soft cushions and clear audio.",price:"Price varies",url:"#",priceTag:"budget",rankTag:"top"},
-{cat:"tech",title:"Wireless Charging Pad",img:"https://via.placeholder.com/300?text=Charger",desc:"Simple, modern wireless charging.",price:"Price varies",url:"#",priceTag:"budget",rankTag:"top"},
-{cat:"home",title:"Minimal Wall Shelf",img:"https://via.placeholder.com/300?text=Shelf",desc:"Clean design for cozy spaces.",price:"Price varies",url:"#",priceTag:"budget",rankTag:"top"}
+{cat:"baby",title:"Cozy Baby Blanket",img:"https://via.placeholder.com/300?text=Baby",desc:"Soft and gentle everyday comfort.",price:"Price varies"},
+{cat:"tech",title:"Mini Bluetooth Speaker",img:"https://via.placeholder.com/300?text=Tech",desc:"Compact speaker with warm sound.",price:"Price varies"},
+{cat:"home",title:"Aroma Mist Diffuser",img:"https://via.placeholder.com/300?text=Home",desc:"Fill your home with calming scents.",price:"Price varies"},
+{cat:"gaming",title:"RGB Gaming Mouse",img:"https://via.placeholder.com/300?text=Gaming",desc:"Smooth tracking with soft lighting.",price:"Price varies"},
+{cat:"beauty",title:"Hydrating Face Mist",img:"https://via.placeholder.com/300?text=Beauty",desc:"A refreshing glow for everyday use.",price:"Price varies"},
+{cat:"kitchen",title:"Nonstick Pan Set",img:"https://via.placeholder.com/300?text=Kitchen",desc:"Cook with ease and comfort.",price:"Price varies"},
+{cat:"cleaning",title:"Microfiber Mop Kit",img:"https://via.placeholder.com/300?text=Cleaning",desc:"Keep your home spotless effortlessly.",price:"Price varies"},
+{cat:"organization",title:"Storage Basket Set",img:"https://via.placeholder.com/300?text=Organization",desc:"Declutter with cozy style.",price:"Price varies"},
+{cat:"pets",title:"Soft Pet Bed",img:"https://via.placeholder.com/300?text=Pets",desc:"A cozy spot for your furry friend.",price:"Price varies"},
+{cat:"outdoors",title:"Portable Lantern",img:"https://via.placeholder.com/300?text=Outdoors",desc:"Warm lighting for outdoor nights.",price:"Price varies"},
+{cat:"clothing",title:"Cozy Hoodie",img:"https://via.placeholder.com/300?text=Clothing",desc:"Soft, warm, and stylish.",price:"Price varies"},
+{cat:"toys",title:"Stacking Toy Set",img:"https://via.placeholder.com/300?text=Toys",desc:"Colorful fun for little ones.",price:"Price varies"},
+{cat:"health",title:"Vitamin Organizer",img:"https://via.placeholder.com/300?text=Health",desc:"Keep your daily supplements tidy.",price:"Price varies"},
+{cat:"office",title:"Desk Organizer Tray",img:"https://via.placeholder.com/300?text=Office",desc:"A clean workspace boosts focus.",price:"Price varies"}
 ];
 
-let currentCat="all",term="";
-
-// RENDER
-function render(){
-const g=document.getElementById("grid");g.innerHTML="";let c=0;
-PRODUCTS.forEach(p=>{
-const t=(p.title+p.desc).toLowerCase();
-const okTxt=t.includes(term);
-const okCat=(currentCat==="all"||p.cat===currentCat||(currentCat==="budget"&&p.priceTag==="budget")||(currentCat==="top"&&p.rankTag==="top"));
-if(okTxt&&okCat){
-c++;
-const el=document.createElement("div");
-el.className="card";
-el.onclick=()=>location.href=p.url;
-el.innerHTML=`<img src="${p.img}"><div class="info"><div class="title">${p.title}</div><div class="desc">${p.desc}</div><div class="price">${p.price}</div></div>`;
-g.appendChild(el);requestAnimationFrame(()=>el.classList.add("show"));
-}
+const productBox=document.getElementById("products");
+function showProducts(cat="all"){
+productBox.innerHTML="";
+let list=PRODUCTS.filter(p=>cat==="all"||p.cat===cat);
+if(list.length===0){nores.style.display="block";return}else nores.style.display="none";
+list.forEach(p=>{
+let c=document.createElement("div");
+c.className="card";
+c.innerHTML=`<img src="${p.img}"><div class="info"><div class="title">${p.title}</div><div class="desc">${p.desc}</div><div class="price">${p.price}</div></div>`;
+productBox.appendChild(c);
+setTimeout(()=>c.classList.add("show"),10);
 });
-document.getElementById("nores").style.display=c?"none":"block";
 }
+showProducts();
 
-// DROPDOWN
-const btn=document.querySelector(".dropdown-btn");
-const menu=document.querySelector(".dropdown-menu");
-btn.onclick=()=>menu.style.display=menu.style.display==="flex"?"none":"flex";
-document.querySelectorAll(".drop-item").forEach(i=>{
-i.onclick=()=>{currentCat=i.dataset.cat;btn.textContent=i.textContent+" ▾";menu.style.display="none";render();}
+document.querySelectorAll(".chip").forEach(ch=>{
+ch.onclick=()=>showProducts(ch.dataset.cat);
 });
 
-// SEARCH
-document.getElementById("search").oninput=e=>{term=e.target.value.toLowerCase();render();};
+document.getElementById("toggle").onclick=()=>document.documentElement.classList.toggle("dark");
 
-render();
+window.onscroll=()=>{topbtn.style.display=window.scrollY>200?"block":"none"};
+topbtn.onclick=()=>window.scrollTo({top:0,behavior:"smooth"});
+
+const chatBtn=document.getElementById("chatBtn");
+const chatBox=document.getElementById("chatBox");
+const chatMsgs=document.getElementById("chatMsgs");
+const chatText=document.getElementById("chatText");
+
+chatBtn.onclick=()=>chatBox.style.display=chatBox.style.display==="flex"?"none":"flex";
+
+function addMsg(text,cls){
+let m=document.createElement("div");
+m.className="msg "+cls;
+m.textContent=text;
+chatMsgs.appendChild(m);
+chatMsgs.scrollTop=chatMsgs.scrollHeight;
+}
+
+function fakeAI(msg){
+msg=msg.toLowerCase();
+if(msg.includes("baby"))return "Here are some cozy baby items you might like.";
+if(msg.includes("tech"))return "Looking for tech? I can help you find something modern and useful.";
+if(msg.includes("gaming"))return "Gaming gear? I’ve got some top picks for you.";
+if(msg.includes("home"))return "Home essentials coming right up.";
+return "I’m here to help you browse, recommend products, or answer questions!";
+}
+
+document.getElementById("chatSend").onclick=()=>{
+let t=chatText.value.trim();
+if(!t)return;
+addMsg(t,"user");
+chatText.value="";
+setTimeout(()=>addMsg(fakeAI(t),"bot"),400);
+};
 </script>
 
 </body></html>

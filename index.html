@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Top Amazon Picks</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f7f7f7;
+            color: #333;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #ff7eb3, #65d6ff);
+            color: white;
+            text-align: center;
+            padding: 80px 20px;
+        }
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+        .hero p {
+            font-size: 20px;
+            opacity: 0.9;
+        }
+
+        /* Product Grid */
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 40px 20px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.2s;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+        .product-card img {
+            width: 100%;
+            border-radius: 10px;
+        }
+        .product-card h3 {
+            margin: 15px 0 10px;
+        }
+        .product-card p {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        .btn {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 10px 18px;
+            background: #ff7eb3;
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .btn:hover {
+            background: #ff5c9d;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 14px;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="hero">
+        <h1>Top Amazon Deals</h1>
+        <p>Hand‑picked products you’ll love — updated daily.</p>
+    </div>
+
+    <section class="products">
+
+        <!-- PRODUCT CARD 1 -->
+        <div class="product-card">
+            <img src="https://via.placeholder.com/300x250" alt="Product Image">
+            <h3>Product Name</h3>
+            <p>Short description of the product goes here.</p>
+            <a class="btn" href="YOUR-AFFILIATE-LINK">View on Amazon</a>
+        </div>
+
+        <!-- PRODUCT CARD 2 -->
+        <div class="product-card">
+            <img src="https://via.placeholder.com/300x250" alt="Product Image">
+            <h3>Product Name</h3>
+            <p>Short description of the product goes here.</p>
+            <a class="btn" href="YOUR-AFFILIATE-LINK">View on Amazon</a>
+        </div>
+
+        <!-- PRODUCT CARD 3 -->
+        <div class="product-card">
+            <img src="https://via.placeholder.com/300x250" alt="Product Image">
+            <h3>Product Name</h3>
+            <p>Short description of the product goes here.</p>
+            <a class="btn" href="YOUR-AFFILIATE-LINK">View on Amazon</a>
+        </div>
+
+    </section>
+
+    <footer>
+        © 2026 Your Affiliate Site — As an Amazon Associate I earn from qualifying purchases.
+    </footer>
+
+</body>
+</html>

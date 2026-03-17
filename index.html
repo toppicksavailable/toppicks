@@ -1,121 +1,95 @@
-<!DOCTYPE html><html lang="en"><head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Dakota’s Store</title>
-<style>
-body{margin:0;font-family:sans-serif;background:#faf9f7;color:#333}
-header{padding:20px;text-align:center;background:#fff;position:sticky;top:0;z-index:10;box-shadow:0 2px 4px #0001}
-#search{width:90%;max-width:500px;padding:10px;border:1px solid #ddd;border-radius:8px}
-#categories{display:flex;overflow-x:auto;gap:10px;padding:10px;background:#fff;position:sticky;top:70px;z-index:9}
-.cat-btn{padding:8px 14px;border:none;border-radius:20px;background:#eee;cursor:pointer;white-space:nowrap}
-.cat-btn.active{background:#c7e8d4}
-.products{padding:20px;display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:15px}
-.card{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 6px #0001;cursor:pointer;opacity:0;transform:translateY(10px);transition:opacity .3s,transform .3s}
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Everyday Deals</title><style>
+body{margin:0;font-family:'Segoe UI',sans-serif;background:#faf9f7;color:#3a3a3a}
+header{padding:20px;background:#fff;position:sticky;top:0;z-index:20;box-shadow:0 3px 8px #0001;border-bottom:1px solid #f0ebe6}
+.logo{font-size:22px;font-weight:700;letter-spacing:1px;color:#3a3a3a;margin-bottom:10px}
+#search{width:90%;max-width:500px;padding:12px 16px;border:1px solid #e6ddd4;border-radius:12px;background:#fdfbf8;font-size:15px;display:block;margin:0 auto}
+.dropdown{width:100%;display:flex;justify-content:center;margin-top:12px;position:relative;z-index:30}
+.dropdown-btn{padding:12px 20px;background:#f3ede6;border:none;border-radius:12px;font-size:15px;color:#4a4a4a;cursor:pointer;box-shadow:0 3px 8px #0001;transition:.2s}
+.dropdown-btn:hover{background:#e8e0d8}
+.dropdown-menu{position:absolute;top:55px;background:#fff;width:220px;border-radius:14px;box-shadow:0 4px 12px #0002;padding:10px 0;display:none;flex-direction:column}
+.drop-item{padding:12px 18px;font-size:14px;color:#4a4a4a;cursor:pointer;transition:.2s}
+.drop-item:hover{background:#f3ede6;border-radius:8px}
+.products{padding:25px;display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:20px}
+.card{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 10px #0001;cursor:pointer;opacity:0;transform:translateY(12px);transition:.35s}
 .card.show{opacity:1;transform:translateY(0)}
-.card img{width:100%;height:160px;object-fit:cover}
-.card .info{padding:10px}
-.card .title{font-size:14px;font-weight:600;margin-bottom:6px}
-.card .desc{font-size:12px;color:#666;margin-bottom:6px}
-.card .price{font-size:12px;color:#444}
-#nores{text-align:center;padding:20px;display:none}
-</style>
-</head><body>
+.card img{width:100%;height:170px;object-fit:cover;background:#f7f4f0}
+.card .info{padding:14px}
+.card .title{font-size:15px;font-weight:600;margin-bottom:6px;color:#3a3a3a}
+.card .desc{font-size:13px;color:#6a6a6a;margin-bottom:8px}
+.card .price{font-size:13px;color:#4a4a4a}
+#nores{text-align:center;padding:25px;display:none;color:#7a7a7a}
+</style></head><body>
 
 <header>
-<h2>Dakota’s Store</h2>
+<div class="logo">EVERYDAY DEALS</div>
 <input id="search" placeholder="Search products...">
 </header>
 
-<section id="categories">
-<button class="cat-btn active" data-cat="all">All</button>
-<button class="cat-btn" data-cat="baby">Baby</button>
-<button class="cat-btn" data-cat="tech">Tech</button>
-<button class="cat-btn" data-cat="home">Home</button>
-<button class="cat-btn" data-cat="gaming">Gaming</button>
-<button class="cat-btn" data-cat="budget">Budget Friendly</button>
-<button class="cat-btn" data-cat="top">Top Selling</button>
-</section>
+<div class="dropdown">
+<button class="dropdown-btn">Categories ▾</button>
+<div class="dropdown-menu">
+<div class="drop-item" data-cat="all">All</div>
+<div class="drop-item" data-cat="baby">Baby</div>
+<div class="drop-item" data-cat="tech">Tech</div>
+<div class="drop-item" data-cat="home">Home</div>
+<div class="drop-item" data-cat="gaming">Gaming</div>
+<div class="drop-item" data-cat="budget">Budget Friendly</div>
+<div class="drop-item" data-cat="top">Top Selling</div>
+</div>
+</div>
 
 <div id="nores">No products found</div>
 <section class="products" id="grid"></section>
 
 <script>
-// =========================
-// PRODUCT DATA (ADD 160 HERE)
-// =========================
+// PRODUCT DATA
 const PRODUCTS=[
 /*
 {
-  "cat":"baby",
-  "title":"Short Clean Title",
-  "img":"https://m.media-amazon.com/images/I/IMAGE_ID.jpg",
-  "desc":"One sentence medium description.",
-  "price":"Price varies",
-  "url":"https://amazon.com/dp/ASIN?tag=dcsales10-20",
-  "priceTag":"budget",
-  "rankTag":"top"
+"cat":"baby",
+"title":"Short Clean Title",
+"img":"https://m.media-amazon.com/images/I/IMAGE_ID.jpg",
+"desc":"One sentence medium description.",
+"price":"Price varies",
+"url":"https://amazon.com/dp/ASIN?tag=dcsales10-20",
+"priceTag":"budget",
+"rankTag":"top"
 },
 */
 ];
 
-// =========================
-// STATE
-// =========================
 let currentCat="all",term="";
 
-// =========================
-// RENDER PRODUCTS
-// =========================
+// RENDER
 function render(){
-  const grid=document.getElementById("grid");
-  grid.innerHTML="";
-  let count=0;
-  PRODUCTS.forEach(p=>{
-    const t=(p.title+p.desc).toLowerCase();
-    const okTxt=t.includes(term);
-    const okCat=(currentCat==="all"
-      || p.cat===currentCat
-      || (currentCat==="budget" && p.priceTag==="budget")
-      || (currentCat==="top" && p.rankTag==="top"));
-    if(okTxt && okCat){
-      count++;
-      const c=document.createElement("div");
-      c.className="card";
-      c.onclick=()=>location.href=p.url;
-      c.innerHTML=`
-        <img src="${p.img}">
-        <div class="info">
-          <div class="title">${p.title}</div>
-          <div class="desc">${p.desc}</div>
-          <div class="price">${p.price}</div>
-        </div>`;
-      grid.appendChild(c);
-      requestAnimationFrame(()=>c.classList.add("show"));
-    }
-  });
-  document.getElementById("nores").style.display=count? "none":"block";
+const g=document.getElementById("grid");g.innerHTML="";let c=0;
+PRODUCTS.forEach(p=>{
+const t=(p.title+p.desc).toLowerCase();
+const okTxt=t.includes(term);
+const okCat=(currentCat==="all"||p.cat===currentCat||(currentCat==="budget"&&p.priceTag==="budget")||(currentCat==="top"&&p.rankTag==="top"));
+if(okTxt&&okCat){
+c++;
+const el=document.createElement("div");
+el.className="card";
+el.onclick=()=>location.href=p.url;
+el.innerHTML=`<img src="${p.img}"><div class="info"><div class="title">${p.title}</div><div class="desc">${p.desc}</div><div class="price">${p.price}</div></div>`;
+g.appendChild(el);requestAnimationFrame(()=>el.classList.add("show"));
+}
+});
+document.getElementById("nores").style.display=c?"none":"block";
 }
 
-// =========================
-// CATEGORY FILTER
-// =========================
-document.querySelectorAll(".cat-btn").forEach(btn=>{
-  btn.onclick=()=>{
-    document.querySelectorAll(".cat-btn").forEach(b=>b.classList.remove("active"));
-    btn.classList.add("active");
-    currentCat=btn.dataset.cat;
-    render();
-  };
+// DROPDOWN
+const btn=document.querySelector(".dropdown-btn");
+const menu=document.querySelector(".dropdown-menu");
+btn.onclick=()=>menu.style.display=menu.style.display==="flex"?"none":"flex";
+document.querySelectorAll(".drop-item").forEach(i=>{
+i.onclick=()=>{currentCat=i.dataset.cat;btn.textContent=i.textContent+" ▾";menu.style.display="none";render();}
 });
 
-// =========================
 // SEARCH
-// =========================
-document.getElementById("search").oninput=e=>{
-  term=e.target.value.toLowerCase();
-  render();
-};
+document.getElementById("search").oninput=e=>{term=e.target.value.toLowerCase();render();};
 
-// INITIAL RENDER
 render();
 </script>
 

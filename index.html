@@ -317,3 +317,107 @@
 <footer>
     © <span id="year"></span> Dakota’s Amazon Picks • Curated with care.
 </footer>
+<script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const buttons = document.querySelectorAll(".cat-btn");
+    const cards = document.querySelectorAll(".product-card");
+    const searchBar = document.getElementById("searchBar");
+    const suggestionsBox = document.getElementById("suggestions");
+    const noResults = document.getElementById("noResults");
+    const voiceBtn = document.getElementById("voiceBtn");
+
+    let activeCategory = "all";
+    let currentTerm = "";
+
+    const productNames = Array.from(cards).map(card => card.querySelector("h3").innerText);
+
+    function applyFilters() {
+        let matchCount = 0;
+        const term = currentTerm.toLowerCase();
+
+        cards.forEach(card => {
+            const cardCat = card.dataset.cat;
+            const text = card.innerText.toLowerCase();
+
+            const categoryMatch = (activeCategory === "all") || (cardCat === activeCategory);
+            const textMatch = text.includes(term);
+
+            if (categoryMatch && textMatch) {
+                card.style.display = "block";
+                matchCount++;
+            } else {
+                card.style.display = "none";
+            }
+        });
+
+        noResults.style.display = matchCount === 0 ? "block" : "none";
+    }
+
+    // CATEGORY FILTER
+    buttons.forEach(btn => {
+        btn.addEventListener("click", () => {
+            buttons.forEach(b => b.classList.remove("active"));
+            btn.classList.add("active");
+            activeCategory = btn.dataset.cat;
+            applyFilters();
+        });
+    });
+
+    // SEARCH + SUGGESTIONS
+    searchBar.addEventListener("input", () => {
+        currentTerm = searchBar.value;
+        applyFilters();
+
+        const term = currentTerm.toLowerCase();
+        if (term.length === 0) {
+            suggestionsBox.style.display = "none";
+            suggestionsBox.innerHTML = "";
+            return;
+        }
+
+        const matches = productNames.filter(name =>
+            name.toLowerCase().includes(term)
+        );
+
+        suggestionsBox.innerHTML = "";
+        matches.forEach(name => {
+            const div = document.createElement("div");
+            div.classList.add("suggestion-item");
+            div.innerText = name;
+
+            div.addEventListener("click", () => {
+                searchBar.value = name;
+                currentTerm = name;
+                applyFilters();
+                suggestionsBox.style.display = "none";
+            });
+
+            suggestionsBox.appendChild(div);
+        });
+
+        suggestionsBox.style.display = matches.length ? "block" : "none";
+    });
+
+    // VOICE SEARCH
+    if (voiceBtn && (window.SpeechRecognition || window.webkitSpeechRecognition)) {
+        voiceBtn.addEventListener("click", () => {
+            const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            const recognition = new Recognition();
+            recognition.lang = "en-US";
+            recognition.start();
+
+            recognition.onresult = (event) => {
+                const spoken = event.results[0][0].transcript;
+                searchBar.value = spoken;
+                currentTerm = spoken;
+                applyFilters();
+            };
+        });
+    } else if (voiceBtn) {
+        voiceBtn.style.display = "none";
+    }
+</script>
+
+</body>
+</html>

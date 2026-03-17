@@ -42,20 +42,18 @@ header{padding:20px;background:#fff;position:sticky;top:0;z-index:20;box-shadow:
 <section class="products" id="grid"></section>
 
 <script>
-// PRODUCT DATA
+// FAKE PRODUCTS (10)
 const PRODUCTS=[
-/*
-{
-"cat":"baby",
-"title":"Short Clean Title",
-"img":"https://m.media-amazon.com/images/I/IMAGE_ID.jpg",
-"desc":"One sentence medium description.",
-"price":"Price varies",
-"url":"https://amazon.com/dp/ASIN?tag=dcsales10-20",
-"priceTag":"budget",
-"rankTag":"top"
-},
-*/
+{cat:"baby",title:"Cozy Baby Blanket",img:"https://via.placeholder.com/300?text=Blanket",desc:"Soft and gentle everyday comfort.",price:"Price varies",url:"#",priceTag:"budget",rankTag:"top"},
+{cat:"baby",title:"Travel Bottle Heater",img:"https://via.placeholder.com/300?text=Heater",desc:"Warm bottles on the go with ease.",price:"Price varies",url:"#",priceTag:"budget",rankTag:"top"},
+{cat:"tech",title:"Mini Bluetooth Speaker",img:"https://via.placeholder.com/300?text=Speaker",desc:"Compact speaker with warm sound.",price:"Price varies",url:"#",priceTag:"budget",rankTag:"top"},
+{cat:"tech",title:"Smart LED Plug",img:"https://via.placeholder.com/300?text=Smart+Plug",desc:"Control devices from anywhere.",price:"Price varies",url:"#",priceTag:"budget",rankTag:"top"},
+{cat:"home",title:"Aroma Mist Diffuser",img:"https://via.placeholder.com/300?text=Diffuser",desc:"Fill your home with calming scents.",price:"Price varies",url:"#",priceTag:"budget",rankTag:"top"},
+{cat:"home",title:"Soft Glow Lamp",img:"https://via.placeholder.com/300?text=Lamp",desc:"Warm ambient lighting for any room.",price:"Price varies",url:"#",priceTag:"budget",rankTag:"top"},
+{cat:"gaming",title:"RGB Gaming Mouse",img:"https://via.placeholder.com/300?text=Mouse",desc:"Smooth tracking with soft lighting.",price:"Price varies",url:"#",priceTag:"budget",rankTag:"top"},
+{cat:"gaming",title:"Comfort Gaming Headset",img:"https://via.placeholder.com/300?text=Headset",desc:"Soft cushions and clear audio.",price:"Price varies",url:"#",priceTag:"budget",rankTag:"top"},
+{cat:"tech",title:"Wireless Charging Pad",img:"https://via.placeholder.com/300?text=Charger",desc:"Simple, modern wireless charging.",price:"Price varies",url:"#",priceTag:"budget",rankTag:"top"},
+{cat:"home",title:"Minimal Wall Shelf",img:"https://via.placeholder.com/300?text=Shelf",desc:"Clean design for cozy spaces.",price:"Price varies",url:"#",priceTag:"budget",rankTag:"top"}
 ];
 
 let currentCat="all",term="";

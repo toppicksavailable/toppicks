@@ -76,6 +76,15 @@
             margin: 0 auto 20px;
         }
 
+        .search-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+
         /* SEARCH BAR */
         #searchBar {
             padding: 14px 20px;
@@ -94,6 +103,45 @@
             background: #ffffff;
             outline: none;
             box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+        }
+
+        .voice-btn {
+            padding: 10px 14px;
+            border-radius: 50%;
+            border: none;
+            background: #e6e2d8;
+            cursor: pointer;
+            font-size: 18px;
+            transition: 0.2s;
+        }
+
+        .voice-btn:hover {
+            background: #d6d1c7;
+        }
+
+        /* Suggestions */
+        .suggestions-box {
+            max-width: 300px;
+            margin: 8px auto 0;
+            background: #ffffff;
+            border: 1px solid #e6e2d8;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            display: none;
+            position: relative;
+            z-index: 200;
+            text-align: left;
+        }
+
+        .suggestion-item {
+            padding: 10px 14px;
+            cursor: pointer;
+            font-size: 14px;
+            color: #444;
+        }
+
+        .suggestion-item:hover {
+            background: #f7f3eb;
         }
 
         /* Category Buttons */
@@ -118,300 +166,4 @@
         .cat-btn[data-cat="tech"] { background: #e8ddf7; color:#4a3f5a; }
         .cat-btn[data-cat="home"] { background: #dff2e4; color:#3a5a46; }
         .cat-btn[data-cat="gaming"] { background: #f7e4d1; color:#5a463a; }
-        .cat-btn[data-cat="all"] { background: #f0dff7; color:#4a3a5a; }
-
-        .cat-btn:hover {
-            opacity: 0.9;
-            transform: translateY(-1px);
-        }
-
-        /* Section titles */
-        .section-title {
-            font-size: 22px;
-            margin: 30px 20px 10px;
-            color: #444;
-        }
-
-        /* Product Grid */
-        .products {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 22px;
-            padding: 10px 20px 40px;
-        }
-
-        .product-card {
-            background: #ffffff;
-            border-radius: 16px;
-            padding: 18px;
-            border: 1px solid #f0f0f0;
-            box-shadow: 0 3px 12px rgba(0,0,0,0.04);
-            text-align: left;
-            transition: 0.25s;
-            opacity: 0;
-            transform: translateY(16px);
-            animation: fadeIn 0.6s ease forwards;
-        }
-
-        .product-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 6px 18px rgba(0,0,0,0.08);
-        }
-
-        .product-card img {
-            width: 100%;
-            max-height: 190px;
-            object-fit: contain;
-            border-radius: 12px;
-            margin-bottom: 10px;
-            background: #faf7f2;
-        }
-
-        .product-card h3 {
-            font-size: 16px;
-            margin-bottom: 6px;
-            color: #444;
-        }
-
-        .product-card p {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 10px;
-        }
-
-        .product-meta {
-            font-size: 13px;
-            color: #999;
-            margin-bottom: 10px;
-        }
-
-        .product-card a {
-            display: inline-block;
-            padding: 9px 14px;
-            background: #8aa899;
-            color: white;
-            border-radius: 10px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 13px;
-            transition: 0.2s;
-        }
-
-        .product-card a:hover {
-            background: #7a9688;
-        }
-
-        /* About + Footer */
-        .about {
-            background: #fdf9f3;
-            padding: 40px 20px 30px;
-            border-top: 1px solid #f0e8dd;
-            border-bottom: 1px solid #f0e8dd;
-        }
-
-        .about-inner {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .about h2 {
-            margin-top: 0;
-            font-size: 22px;
-            color: #444;
-        }
-
-        .about p {
-            font-size: 15px;
-            color: #666;
-            line-height: 1.6;
-        }
-
-        footer {
-            text-align: center;
-            padding: 18px 10px 26px;
-            font-size: 13px;
-            color: #888;
-        }
-
-        /* Fade-in animation */
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Responsive tweaks */
-        @media (max-width: 600px) {
-            header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 8px;
-            }
-            nav {
-                flex-wrap: wrap;
-            }
-        }
-    </style>
-</head>
-
-<body>
-<header>
-    <h2>Dakota’s Amazon Picks</h2>
-    <nav>
-        <a href="#top">Home</a>
-        <a href="#categories">Categories</a>
-        <a href="#products">Products</a>
-        <a href="#about">About</a>
-    </nav>
-</header>
-
-<main id="top">
-    <section class="hero">
-        <h1>Cozy, Clean & Colorful Finds</h1>
-        <p>Curated Amazon picks for Baby, Tech, Home, and Gaming—hand‑picked to feel calm, practical, and parent‑friendly.</p>
-        <input type="text" id="searchBar" placeholder="Search products by name or category...">
-    </section>
-
-    <section id="categories">
-        <button class="cat-btn" data-cat="all">All</button>
-        <button class="cat-btn" data-cat="baby">Baby</button>
-        <button class="cat-btn" data-cat="tech">Tech</button>
-        <button class="cat-btn" data-cat="home">Home</button>
-        <button class="cat-btn" data-cat="gaming">Gaming</button>
-    </section>
-
-    <h2 class="section-title" id="products">Featured products</h2>
-
-    <section class="products">
-        <!-- BABY -->
-        <div class="product-card" data-cat="baby">
-            <img src="https://via.placeholder.com/300x200?text=Baby+Monitor" alt="Video Baby Monitor">
-            <h3>Video Baby Monitor with Camera & Night Vision</h3>
-            <p>Clear video, two‑way audio, and night vision so you can check on baby without leaving your cozy spot.</p>
-            <div class="product-meta">Category: Baby • Example item</div>
-            <!-- Replace # with your Amazon affiliate link -->
-            <a href="#" target="_blank" rel="noopener noreferrer">View on Amazon</a>
-        </div>
-
-        <div class="product-card" data-cat="baby">
-            <img src="https://via.placeholder.com/300x200?text=Sound+Machine" alt="Baby Sound Machine">
-            <h3>Baby White Noise & Sound Machine</h3>
-            <p>Soft sounds and lullabies to help baby (and you) sleep better through the night.</p>
-            <div class="product-meta">Category: Baby • Example item</div>
-            <a href="#" target="_blank" rel="noopener noreferrer">View on Amazon</a>
-        </div>
-
-        <div class="product-card" data-cat="baby">
-            <img src="https://via.placeholder.com/300x200?text=Swaddle" alt="Swaddle Blankets">
-            <h3>Cozy Cotton Swaddle Blanket Set</h3>
-            <p>Gentle, breathable swaddles that keep baby snug without overheating.</p>
-            <div class="product-meta">Category: Baby • Example item</div>
-            <a href="#" target="_blank" rel="noopener noreferrer">View on Amazon</a>
-        </div>
-
-        <div class="product-card" data-cat="baby">
-            <img src="https://via.placeholder.com/300x200?text=Baby+Carrier" alt="Baby Carrier">
-            <h3>Ergonomic Baby Carrier</h3>
-            <p>Comfortable support for both you and baby—perfect for walks, errands, and contact naps.</p>
-            <div class="product-meta">Category: Baby • Example item</div>
-            <a href="#" target="_blank" rel="noopener noreferrer">View on Amazon</a>
-        </div>
-
-        <!-- TECH -->
-        <div class="product-card" data-cat="tech">
-            <img src="https://via.placeholder.com/300x200?text=Wireless+Earbuds" alt="Wireless Earbuds">
-            <h3>Wireless Noise‑Cancelling Earbuds</h3>
-            <p>Great for focus, podcasts, and late‑night gaming sessions without waking anyone.</p>
-            <div class="product-meta">Category: Tech • Example item</div>
-            <a href="#" target="_blank" rel="noopener noreferrer">View on Amazon</a>
-        </div>
-
-        <div class="product-card" data-cat="tech">
-            <img src="https://via.placeholder.com/300x200?text=Mechanical+Keyboard" alt="Mechanical Keyboard">
-            <h3>Compact Mechanical Keyboard</h3>
-            <p>Clicky, satisfying keys in a small footprint—perfect for clean desk setups.</p>
-            <div class="product-meta">Category: Tech • Example item</div>
-            <a href="#" target="_blank" rel="noopener noreferrer">View on Amazon</a>
-        </div>
-
-        <div class="product-card" data-cat="tech">
-            <img src="https://via.placeholder.com/300x200?text=USB+Hub" alt="USB Hub">
-            <h3>USB‑C Hub & Docking Station</h3>
-            <p>Expand your laptop or desktop with extra ports for drives, displays, and accessories.</p>
-            <div class="product-meta">Category: Tech • Example item</div>
-            <a href="#" target="_blank" rel="noopener noreferrer">View on Amazon</a>
-        </div>
-
-        <div class="product-card" data-cat="tech">
-            <img src="https://via.placeholder.com/300x200?text=Webcam" alt="HD Webcam">
-            <h3>HD Webcam with Built‑In Microphone</h3>
-            <p>Clear video calls and streaming without needing a full camera setup.</p>
-            <div class="product-meta">Category: Tech • Example item</div>
-            <a href="#" target="_blank" rel="noopener noreferrer">View on Amazon</a>
-        </div>
-
-        <!-- HOME -->
-        <div class="product-card" data-cat="home">
-            <img src="https://via.placeholder.com/300x200?text=Storage+Baskets" alt="Storage Baskets">
-            <h3>Woven Storage Baskets Set</h3>
-            <p>Hide clutter in style—perfect for toys, blankets, and baby gear in a shared room.</p>
-            <div class="product-meta">Category: Home • Example item</div>
-            <a href="#" target="_blank" rel="noopener noreferrer">View on Amazon</a>
-        </div>
-
-        <div class="product-card" data-cat="home">
-            <img src="https://via.placeholder.com/300x200?text=LED+Lamp" alt="LED Lamp">
-            <h3>Dimmable Bedside LED Lamp</h3>
-            <p>Soft, warm light for late‑night feeds, gaming, or reading without harsh brightness.</p>
-            <div class="product-meta">Category: Home • Example item</div>
-            <a href="#" target="_blank" rel="noopener noreferrer">View on Amazon</a>
-        </div>
-
-        <div class="product-card" data-cat="home">
-            <img src="https://via.placeholder.com/300x200?text=Throw+Blanket" alt="Throw Blanket">
-            <h3>Cozy Knit Throw Blanket</h3>
-            <p>Add warmth and texture to your space while staying comfy during long sessions.</p>
-            <div class="product-meta">Category: Home • Example item</div>
-            <a href="#" target="_blank" rel="noopener noreferrer">View on Amazon</a>
-        </div>
-
-        <div class="product-card" data-cat="home">
-            <img src="https://via.placeholder.com/300x200?text=Diffuser" alt="Essential Oil Diffuser">
-            <h3>Essential Oil Diffuser</h3>
-            <p>Soft mist and subtle scents to keep your room feeling calm and refreshed.</p>
-            <div class="product-meta">Category: Home • Example item</div>
-            <a href="#" target="_blank" rel="noopener noreferrer">View on Amazon</a>
-        </div>
-
-        <!-- GAMING -->
-        <div class="product-card" data-cat="gaming">
-            <img src="https://via.placeholder.com/300x200?text=Controller" alt="Wireless Controller">
-            <h3>Wireless Gaming Controller</h3>
-            <p>Comfortable, responsive controller for console or PC gaming sessions.</p>
-            <div class="product-meta">Category: Gaming • Example item</div>
-            <a href="#" target="_blank" rel="noopener noreferrer">View on Amazon</a>
-        </div>
-
-        <div class="product-card" data-cat="gaming">
-            <img src="https://via.placeholder.com/300x200?text=Headset" alt="Gaming Headset">
-            <h3>Surround Sound Gaming Headset</h3>
-            <p>Immersive audio with a clear mic for co‑op nights and party chat.</p>
-            <div class="product-meta">Category: Gaming • Example item</div>
-            <a href="#" target="_blank" rel="noopener noreferrer">View on Amazon</a>
-        </div>
-
-        <div class="product-card" data-cat="gaming">
-            <img src="https://via.placeholder.com/300x200?text=Mouse" alt="Gaming Mouse">
-            <h3>RGB Gaming Mouse</h3>
-            <p>Customizable DPI and lighting to match your setup and playstyle.</p>
-            <div class="product-meta">Category: Gaming • Example item</div>
-            <a href="#" target="_blank" rel="noopener noreferrer">View on Amazon</a>
-        </div>
-
-        <div class="product-card" data-cat="gaming">
-            <img src="https://via.placeholder.com/300x200?text=Mousepad" alt="Extended Mousepad">
-            <h3>Extended Desk Mousepad</h3>
-            <p>Gives your keyboard and mouse a smooth, unified surface with a clean look.</p>
-            <div class="product-meta">Category: Gaming • Example item</div>
-            <a href="#" target="_blank" rel="noopener noreferrer">View on Amazon</a>
+        .cat-btn[data-cat="all"] { background: #f0dff7; color

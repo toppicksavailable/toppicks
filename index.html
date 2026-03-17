@@ -1,46 +1,122 @@
-<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Dakota’s Amazon Picks</title><style>
-body{margin:0;font-family:"Segoe UI",Arial;background:#faf7f2;color:#333;}header{background:#fff;padding:20px;box-shadow:0 2px 14px rgba(0,0,0,.05);display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;}nav a{text-decoration:none;color:#555;font-weight:600;margin-left:15px;}nav a:hover{color:#8aa899;}
-.hero{text-align:center;padding:60px 20px;background:#fdf9f3;border-bottom:1px solid #f0e8dd;}#searchBar{padding:12px 18px;width:260px;border-radius:12px;border:2px solid #e6e2d8;background:#fdfbf7;}#voiceBtn{padding:10px;border-radius:50%;border:none;background:#e6e2d8;}
-#categories{text-align:center;padding:20px;} .cat-btn{padding:8px 16px;border:none;border-radius:20px;font-weight:600;margin:4px;} .cat-btn[data-cat=baby]{background:#d8e7f7;color:#3a4a5a;} .cat-btn[data-cat=tech]{background:#e8ddf7;color:#4a3f5a;} .cat-btn[data-cat=home]{background:#dff2e4;color:#3a5a46;} .cat-btn[data-cat=gaming]{background:#f7e4d1;color:#5a463a;} .cat-btn[data-cat=all]{background:#f0dff7;color:#4a3a5a;}
-.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;padding:20px;} .product-card{background:#fff;padding:16px;border-radius:14px;box-shadow:0 3px 10px rgba(0,0,0,.05);} .product-card img{width:100%;height:150px;object-fit:contain;background:#faf7f2;border-radius:10px;}
-footer{text-align:center;padding:20px;color:#777;font-size:14px;}
-</style></head><body>
-<header><h2>Dakota’s Amazon Picks</h2><nav><a href="#top">Home</a><a href="#categories">Categories</a><a href="#products">Products</a></nav></header>
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dakota’s Store</title>
+<style>
+body{margin:0;font-family:sans-serif;background:#faf9f7;color:#333}
+header{padding:20px;text-align:center;background:#fff;position:sticky;top:0;z-index:10;box-shadow:0 2px 4px #0001}
+#search{width:90%;max-width:500px;padding:10px;border:1px solid #ddd;border-radius:8px}
+#categories{display:flex;overflow-x:auto;gap:10px;padding:10px;background:#fff;position:sticky;top:70px;z-index:9}
+.cat-btn{padding:8px 14px;border:none;border-radius:20px;background:#eee;cursor:pointer;white-space:nowrap}
+.cat-btn.active{background:#c7e8d4}
+.products{padding:20px;display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:15px}
+.card{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 6px #0001;cursor:pointer;opacity:0;transform:translateY(10px);transition:opacity .3s,transform .3s}
+.card.show{opacity:1;transform:translateY(0)}
+.card img{width:100%;height:160px;object-fit:cover}
+.card .info{padding:10px}
+.card .title{font-size:14px;font-weight:600;margin-bottom:6px}
+.card .desc{font-size:12px;color:#666;margin-bottom:6px}
+.card .price{font-size:12px;color:#444}
+#nores{text-align:center;padding:20px;display:none}
+</style>
+</head><body>
 
-<section class="hero"><h1>Cozy, Clean & Colorful Finds</h1><p>Curated Amazon picks for Baby, Tech, Home, and Gaming.</p>
-<input id="searchBar" placeholder="Search products..."><button id="voiceBtn">🎤</button>
-<div id="suggestions" style="display:none;background:#fff;border:1px solid #ddd;border-radius:8px;max-width:260px;margin:10px auto;"></div>
-</section>
+<header>
+<h2>Dakota’s Store</h2>
+<input id="search" placeholder="Search products...">
+</header>
 
 <section id="categories">
-<button class="cat-btn" data-cat="all">All</button>
+<button class="cat-btn active" data-cat="all">All</button>
 <button class="cat-btn" data-cat="baby">Baby</button>
 <button class="cat-btn" data-cat="tech">Tech</button>
 <button class="cat-btn" data-cat="home">Home</button>
 <button class="cat-btn" data-cat="gaming">Gaming</button>
+<button class="cat-btn" data-cat="budget">Budget Friendly</button>
+<button class="cat-btn" data-cat="top">Top Selling</button>
 </section>
 
-<h2 style="text-align:center" id="products">Featured Products</h2>
-
-<section class="products">
-<div class="product-card" data-cat="baby"><img src="https://via.placeholder.com/300x200?text=Baby"><h3>Baby Monitor</h3><p>Night vision + audio.</p></div>
-<div class="product-card" data-cat="tech"><img src="https://via.placeholder.com/300x200?text=Tech"><h3>Wireless Earbuds</h3><p>Noise cancelling.</p></div>
-<div class="product-card" data-cat="home"><img src="https://via.placeholder.com/300x200?text=Home"><h3>LED Lamp</h3><p>Warm dimmable light.</p></div>
-<div class="product-card" data-cat="gaming"><img src="https://via.placeholder.com/300x200?text=Gaming"><h3>Gaming Controller</h3><p>Responsive + wireless.</p></div>
-</section>
-
-<p id="noResults" style="display:none;text-align:center;color:#777;">No results found.</p>
-
-<footer>© <span id="year"></span> Dakota’s Amazon Picks</footer>
+<div id="nores">No products found</div>
+<section class="products" id="grid"></section>
 
 <script>
-document.getElementById("year").textContent=new Date().getFullYear();
-const btns=document.querySelectorAll(".cat-btn"),cards=document.querySelectorAll(".product-card"),s=document.getElementById("searchBar"),sg=document.getElementById("suggestions"),nr=document.getElementById("noResults"),v=document.getElementById("voiceBtn");
-let cat="all",term="";
-function apply(){let c=0;cards.forEach(x=>{let ok=(cat==="all"||x.dataset.cat===cat)&&x.innerText.toLowerCase().includes(term);x.style.display=ok?"block":"none";if(ok)c++;});nr.style.display=c?"none":"block";}
-btns.forEach(b=>b.onclick=()=>{cat=b.dataset.cat;apply();});
-s.oninput=()=>{term=s.value.toLowerCase();apply();let m=[...cards].map(x=>x.querySelector("h3").innerText.toLowerCase()).filter(n=>n.includes(term));sg.innerHTML="";if(!term||!m.length){sg.style.display="none";return;}m.forEach(n=>{let d=document.createElement("div");d.style.padding="8px";d.innerText=n;d.onclick=()=>{s.value=n;term=n;apply();sg.style.display="none";};sg.appendChild(d);});sg.style.display="block";}
-if(window.SpeechRecognition||window.webkitSpeechRecognition){v.onclick=()=>{let R=window.SpeechRecognition||window.webkitSpeechRecognition,r=new R();r.start();r.onresult=e=>{let t=e.results[0][0].transcript;s.value=t;term=t.toLowerCase();apply();};};}else v.style.display="none";
+// =========================
+// PRODUCT DATA (ADD 160 HERE)
+// =========================
+const PRODUCTS=[
+/*
+{
+  "cat":"baby",
+  "title":"Short Clean Title",
+  "img":"https://m.media-amazon.com/images/I/IMAGE_ID.jpg",
+  "desc":"One sentence medium description.",
+  "price":"Price varies",
+  "url":"https://amazon.com/dp/ASIN?tag=dcsales10-20",
+  "priceTag":"budget",
+  "rankTag":"top"
+},
+*/
+];
+
+// =========================
+// STATE
+// =========================
+let currentCat="all",term="";
+
+// =========================
+// RENDER PRODUCTS
+// =========================
+function render(){
+  const grid=document.getElementById("grid");
+  grid.innerHTML="";
+  let count=0;
+  PRODUCTS.forEach(p=>{
+    const t=(p.title+p.desc).toLowerCase();
+    const okTxt=t.includes(term);
+    const okCat=(currentCat==="all"
+      || p.cat===currentCat
+      || (currentCat==="budget" && p.priceTag==="budget")
+      || (currentCat==="top" && p.rankTag==="top"));
+    if(okTxt && okCat){
+      count++;
+      const c=document.createElement("div");
+      c.className="card";
+      c.onclick=()=>location.href=p.url;
+      c.innerHTML=`
+        <img src="${p.img}">
+        <div class="info">
+          <div class="title">${p.title}</div>
+          <div class="desc">${p.desc}</div>
+          <div class="price">${p.price}</div>
+        </div>`;
+      grid.appendChild(c);
+      requestAnimationFrame(()=>c.classList.add("show"));
+    }
+  });
+  document.getElementById("nores").style.display=count? "none":"block";
+}
+
+// =========================
+// CATEGORY FILTER
+// =========================
+document.querySelectorAll(".cat-btn").forEach(btn=>{
+  btn.onclick=()=>{
+    document.querySelectorAll(".cat-btn").forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+    currentCat=btn.dataset.cat;
+    render();
+  };
+});
+
+// =========================
+// SEARCH
+// =========================
+document.getElementById("search").oninput=e=>{
+  term=e.target.value.toLowerCase();
+  render();
+};
+
+// INITIAL RENDER
+render();
 </script>
 
 </body></html>
